@@ -18,10 +18,48 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
     rgb(var(--background-start-rgb));
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+
+  h5 {
+    @apply text-base;
+  }
+}
+
+.lg-react-element {
+  @apply flex gap-1 justify-center items-center p-2 flex-wrap w-3/4 mx-auto;
+}
+
+.lg-react-element img {
+  @apply p-1;
+}
+
+.contact {
+  @apply flex flex-col bg-gray-200 p-2;
+}
+
+.item {
+  @apply text-blue-500 bg-gray-300 p-2 flex;
+}
+.item label {
+  @apply w-[70px] mr-2;
+}
+
+input {
+  @apply outline-none;
 }
