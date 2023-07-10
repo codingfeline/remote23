@@ -1,20 +1,34 @@
 'use client'
 
-import { Customers as CustType } from '@utils/types/customer'
-import { useAppSelector, useEffect, useState, axios } from '@components'
+import { Customers as CustType, contact as ContactType } from '@utils/types/customer'
+import {
+  useAppSelector,
+  useEffect,
+  useState,
+  axios,
+  Contact,
+  Show,
+  Hide,
+} from '@components'
 
 const page = ({ params }: { params: CustType }) => {
-  const customers = useAppSelector(state => state.customer.value)
-  const customer = customers.filter((cust: CustType) => cust._id === params._id)
-  const name = customer.map((cust: CustType) => cust.name)
-  const [customerName, setCustomerName] = useState('')
+  // const customers = useAppSelector(state => state.customer.value)
+  // const customer = customers.filter((cust: CustType) => cust._id === params._id)
+  // const name = customer.map((cust: CustType) => cust.name)
+  // const [customerName, setCustomerName] = useState('')
+
+  const [userPosts, setUserPosts] = useState([])
+  const [customer, setCustomer] = useState([])
+  const [contact, setContact] = useState<ContactType[]>([])
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get('https://remoteapi.nazs.net/api/customers')
-      // const data = await response.json()
-      const customer = response.data.filter((cust: CustType) => cust._id === params._id)
-      // setCustomerName(customer.name)
+      const response = await fetch(`https://remoteapi.nazs.net/api/customers`)
+      const data = await response.json()
+      const filteredData = data.filter((c: CustType) => c._id === params._id)[0]
+      setCustomer(filteredData)
+      setContact(filteredData.contact)
     }
 
     if (params?._id) fetchPosts()
@@ -23,18 +37,28 @@ const page = ({ params }: { params: CustType }) => {
   return (
     <>
       <div>page</div>
-      {params._id}
+      {params._id} - {customer.length}
       <hr />
-      {/* {JSON.stringify(customer)} */}
+      {show ? (
+        <Hide onClick={() => setShow(prev => !prev)} />
+      ) : (
+        <Show onClick={() => setShow(prev => !prev)} />
+      )}
+      {show && <pre>{JSON.stringify(customer, null, 2)}</pre>}
       <hr />
-      {/* {JSON.stringify(customers)} */}
-      {customer.map((cust: CustType) => (
-        <h5>{cust.name}</h5>
+      <hr />
+      {contact.map(cont => (
+        <Contact name={cont.name} email={cont.email} tel={cont.tel} _id={cont._id} />
       ))}
-      <hr />
-      {JSON.stringify(customerName)}
     </>
   )
 }
 
 export default page
+
+// type contact = {
+//   _id: string
+//   name: string
+//   tel: string
+//   email: string
+// }
