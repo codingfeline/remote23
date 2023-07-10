@@ -5,10 +5,12 @@ import { configureStore } from '@reduxjs/toolkit'
 // import icecreamReducer from '../features/icecream/icecreamSlice'
 // import userReducer from '../features/user/userSlice'
 import counterReducer from '@redux/features/counter/counterSlice'
+import customerSlice from './features/customers/customerSlice'
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer
+    counter: counterReducer,
+    customer: customerSlice
   }
 })
 
