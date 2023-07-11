@@ -1,19 +1,18 @@
-import { UserPass } from '@components'
-import React from 'react'
+import { UserPass, ServerType } from '@components'
 
-const page = () => {
+const page = (server: ServerType) => {
   return (
     <div className="server">
       <h4>server</h4>
       <div className="item">
-        <label htmlFor="hostname">hostname</label>
-        <input type="text" />
+        <label htmlFor="name">name</label>
+        <input type="text" value={server.name} />
       </div>
       <div className="item">
         <label htmlFor="ip">IP</label>
-        <input type="text" />
+        <input type="text" value={server.ip} />
       </div>
-      <UserPass />
+      <UserPass username={server.username} password={server.password} />
     </div>
   )
 }
