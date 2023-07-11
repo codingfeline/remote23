@@ -1,22 +1,22 @@
 import { useAppSelector } from '@components'
-import { contact } from '@utils/types/customer'
+import { ContactType } from '@utils/types/customer'
 
-const page = (contact: contact) => {
+const page = (contact: ContactType) => {
   const counter = useAppSelector(state => state.counter.value)
   return (
     <div className="contact">
       <h4>contact {counter}</h4>
       <div className="item">
         <label htmlFor="name">name</label>
-        <input type="text" value={contact.name} />
+        <input type="text" value={contact.name} readOnly />
       </div>
       <div className="item">
         <label htmlFor="email">email</label>
-        <input type="text" value={contact.email} />
+        <input type="text" value={contact.email} readOnly />
       </div>
       <div className="item">
         <label htmlFor="tel">tel</label>
-        <input type="text" value={contact.tel} />
+        <input type="text" value={contact.tel} readOnly />
       </div>
     </div>
   )
