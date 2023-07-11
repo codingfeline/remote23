@@ -30,15 +30,20 @@ export type devicePassword = {
   make: string
 } & id & userPass
 
+export type MethodType = {
+  methodName: string
+  url: string
+  notes: string
+} & id & userPass
 
 // extensions
 
 export type id = {
-  _id: string
+  _id?: string
 }
 
 export type idName = {
-  _id: string
+  _id?: string
   name: string
 }
 
