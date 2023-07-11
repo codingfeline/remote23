@@ -1,40 +1,41 @@
 export type Customers = {
   solution: String
-  methodInfo: Object
-  contact: contact
-  server: server
+  methodInfo: MethodInfoType
+  contact: ContactType
+  server: ServerType
 } & idName
 
-export type contact = {
+export type ContactType = {
   tel: string
   email: string
 } & idName
 
-export type methodInfo = {
+export type MethodInfoType = {
   methodName: string
   notes: string
-} & idName
+  url: string
+} & id & UserPassType
 
 
-export type server = {
+export type ServerType = {
   ip: string
-} & idName & userPass
+} & idName & UserPassType
 
-export type serverSetup = {
+export type ServerSetupType = {
   comment: string
   screenshot: string
   path: string
 } & id
 
-export type devicePassword = {
+export type DevicePasswordType = {
   make: string
-} & id & userPass
+} & id & UserPassType
 
 export type MethodType = {
   methodName: string
   url: string
   notes: string
-} & id & userPass
+} & id & UserPassType
 
 // extensions
 
@@ -47,7 +48,7 @@ export type idName = {
   name: string
 }
 
-export type userPass = {
+export type UserPassType = {
   username: string
   password: string
 }
