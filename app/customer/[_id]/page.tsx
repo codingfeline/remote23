@@ -1,14 +1,18 @@
 'use client'
 
 //prettier-ignore
-import {  useAppSelector, useEffect, useState, Contact, Show, Hide, Link, CustType, ContactType, MethodType, Method } from '@components'
+import {  useAppSelector, useEffect, useState, Contact, Show, Hide, Link, CustType, ContactType, MethodInfoType, Method, ServerType, Server, DevicePasswordType, Device } from '@components'
 
 const page = ({ params }: { params: CustType }) => {
   const customers = useAppSelector(state => state.customer.value)
-  const [customer, setCustomer] = useState([])
+  const [customer, setCustomer] = useState<CustType | null>(null)
   const [show, setShow] = useState(false)
+  const [showContact, setshowContact] = useState(true)
+  const [showServer, setshowServer] = useState(true)
   const [contact, setContact] = useState<ContactType[]>([])
-  const [method, setMethod] = useState<MethodType[]>([])
+  const [method, setMethod] = useState<MethodInfoType[]>([])
+  const [server, setServer] = useState<ServerType[]>([])
+  const [devicePassword, setdevicePassword] = useState<DevicePasswordType[]>([])
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -18,6 +22,8 @@ const page = ({ params }: { params: CustType }) => {
       setCustomer(filteredData)
       setContact(filteredData.contact)
       setMethod(filteredData.methodInfo)
+      setServer(filteredData.server)
+      setdevicePassword(filteredData.devicePassword)
     }
 
     if (params?._id) fetchPosts()
@@ -32,7 +38,7 @@ const page = ({ params }: { params: CustType }) => {
           </Link>
         ))}
       </div>
-      {params._id} - {customer.length}
+      {params._id} - {customer?.name}
       <hr />
       {show ? (
         <Hide onClick={() => setShow(prev => !prev)} />
@@ -48,12 +54,56 @@ const page = ({ params }: { params: CustType }) => {
           url={meth.url}
           username={meth.username}
           password={meth.password}
-          notes={meth.password}
+          notes={meth.notes}
+          _id={meth._id}
         />
       ))}
       <hr />
-      {contact.map(cont => (
-        <Contact key={cont._id} name={cont.name} email={cont.email} tel={cont.tel} />
+      {showContact ? (
+        <>
+          <div className="showItem group" onClick={() => setshowContact(prev => !prev)}>
+            <Hide />
+            <span> Contact</span>
+          </div>
+          {contact.map(cont => (
+            <Contact
+              key={cont._id}
+              name={cont.name}
+              email={cont.email}
+              tel={cont.tel}
+              _id={cont._id}
+            />
+          ))}
+        </>
+      ) : (
+        <div className="showItem" onClick={() => setshowContact(prev => !prev)}>
+          <Show />
+          <span> Contact</span>
+        </div>
+      )}
+      {showServer ? (
+        <>
+          <Hide onClick={() => setshowServer(prev => !prev)} />
+          {server.map(serv => (
+            <Server
+              key={serv._id}
+              name={serv.name}
+              username={serv.username}
+              password={serv.password}
+              ip={serv.ip}
+            />
+          ))}
+        </>
+      ) : (
+        <Show onClick={() => setshowServer(prev => !prev)} />
+      )}
+      {devicePassword.map(device => (
+        <Device
+          key={device._id}
+          make={device.make}
+          username={device.username}
+          password={device.password}
+        />
       ))}
     </>
   )
