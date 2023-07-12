@@ -6,7 +6,7 @@ const index = (user: DevicePasswordType) => {
       <h4>device</h4>
       <div className="item">
         <label htmlFor="make">make</label>
-        <input type="text" />
+        <input type="text" value={user.make} />
       </div>
       <UserPass username={user.username} password={user.password} />
     </div>
