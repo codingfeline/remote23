@@ -10,6 +10,8 @@ const page = ({ params }: { params: CustType }) => {
   const [showMethod, setshowMethod] = useState(true)
   const [showContact, setshowContact] = useState(true)
   const [showServer, setshowServer] = useState(true)
+  const [showDevice, setshowDevice] = useState(true)
+  const [showSetup, setshowSetup] = useState(true)
   const [contact, setContact] = useState<ContactType[]>([])
   const [method, setMethod] = useState<MethodInfoType[]>([])
   const [server, setServer] = useState<ServerType[]>([])
@@ -51,17 +53,10 @@ const page = ({ params }: { params: CustType }) => {
       {show && <pre>{JSON.stringify(customer, null, 2)}</pre>}
       <hr />
       {/* METHOD STARTS */}
-      {showMethod ? (
-        <div className="groupMaster group" onClick={() => setshowMethod(prev => !prev)}>
-          <Show className="groupSub" />
-          <span className="groupSub"> Method</span>
-        </div>
-      ) : (
-        <div className="groupMaster group" onClick={() => setshowMethod(prev => !prev)}>
-          <Hide className="groupSub" />
-          <span className="groupSub"> Method</span>
-        </div>
-      )}
+      <div className="groupMaster group" onClick={() => setshowMethod(prev => !prev)}>
+        {showMethod ? <Show className="groupSub" /> : <Hide className="groupSub" />}
+        <span className="groupSub"> Method</span>
+      </div>
       <div className={`transIn ${!showMethod && 'transOut'}`}>
         {method.map(meth => (
           <Method
@@ -78,17 +73,10 @@ const page = ({ params }: { params: CustType }) => {
       <hr />
       {/* METHOD ENDS  */}
       {/* CONTACT STARTS  */}
-      {showContact ? (
-        <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
-          <Show className="groupSub" />
-          <span className="groupSub"> Contact</span>
-        </div>
-      ) : (
-        <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
-          <Hide className="groupSub" />
-          <span className="groupSub"> Contact</span>
-        </div>
-      )}
+      <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
+        {showContact ? <Show className="groupSub" /> : <Hide className="groupSub" />}
+        <span className="groupSub"> Contact</span>
+      </div>
       <div className={`transIn ${!showContact && 'transOut'}`}>
         {contact.map(cont => (
           <Contact
@@ -101,33 +89,50 @@ const page = ({ params }: { params: CustType }) => {
         ))}
       </div>
       {/* CONTACT ENDS */}
-      {showServer ? (
-        <>
-          <Hide onClick={() => setshowServer(prev => !prev)} />
-          {server.map(serv => (
-            <Server
-              key={serv._id}
-              name={serv.name}
-              username={serv.username}
-              password={serv.password}
-              ip={serv.ip}
-            />
-          ))}
-        </>
-      ) : (
-        <Show onClick={() => setshowServer(prev => !prev)} />
-      )}
-      {devicePassword.map(device => (
-        <Device
-          key={device._id}
-          make={device.make}
-          username={device.username}
-          password={device.password}
-        />
-      ))}
-      {serverSetup.map(setup => (
-        <Setup key={setup._id} comment={setup.comment} screenshot={setup.screenshot} />
-      ))}
+      {/* SERVER STARTS */}
+      <div className="groupMaster group" onClick={() => setshowServer(prev => !prev)}>
+        {showServer ? <Show className="groupSub" /> : <Hide className="groupSub" />}
+        <span className="groupSub">Server</span>
+      </div>
+      <div className={`transIn ${!showServer && 'transOut'}`}>
+        {server.map(serv => (
+          <Server
+            key={serv._id}
+            name={serv.name}
+            username={serv.username}
+            password={serv.password}
+            ip={serv.ip}
+          />
+        ))}
+      </div>
+      {/* SERVER ENDS */}
+      {/* DEVICE STARTS */}
+      <div className="groupMaster group" onClick={() => setshowDevice(prev => !prev)}>
+        {showDevice ? <Show className="groupSub" /> : <Hide className="groupSub" />}
+        <span className="groupSub">Device</span>
+      </div>
+      <div className={`transIn ${!showDevice && 'transOut'}`}>
+        {devicePassword.map(device => (
+          <Device
+            key={device._id}
+            make={device.make}
+            username={device.username}
+            password={device.password}
+          />
+        ))}
+      </div>
+      {/* DEVICE ENDS */}
+      {/* SETUP STARTS */}
+      <div className="groupMaster group" onClick={() => setshowSetup(prev => !prev)}>
+        {showSetup ? <Show className="groupSub" /> : <Hide className="groupSub" />}
+        <span className="groupSub">Screenshots</span>
+      </div>
+      <div className={`transIn ${showSetup && 'transOut'}`}>
+        {serverSetup.map(setup => (
+          <Setup key={setup._id} comment={setup.comment} screenshot={setup.screenshot} />
+        ))}
+      </div>
+      {/* SETUP ENDS */}
     </>
   )
 }
