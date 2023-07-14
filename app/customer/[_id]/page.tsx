@@ -63,10 +63,10 @@ const page = ({ params }: { params: CustType }) => {
             key={meth._id}
             methodName={meth.methodName}
             url={meth.url}
-            username={meth.username}
-            password={meth.password}
             notes={meth.notes}
             _id={meth._id}
+            username={meth.username}
+            password={meth.password}
           />
         ))}
       </div>
