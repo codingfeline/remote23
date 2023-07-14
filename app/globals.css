@@ -127,3 +127,9 @@ a {
 .showItem span {
   @apply ml-2;
 }
+.groupSub {
+  @apply group-hover:text-blue-400;
+}
+.groupMaster {
+  @apply showItem delay-500 transition-all flex bg-red-100 items-center justify-center select-none;
+}
