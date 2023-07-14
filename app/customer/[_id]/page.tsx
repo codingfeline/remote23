@@ -50,22 +50,19 @@ const page = ({ params }: { params: CustType }) => {
       )}
       {show && <pre>{JSON.stringify(customer, null, 2)}</pre>}
       <hr />
+      {/* METHOD STARTS */}
       {showMethod ? (
-        <div className="showItem" onClick={() => setshowMethod(prev => !prev)}>
-          <Hide />
-          <span> Method</span>
+        <div className="groupMaster group" onClick={() => setshowMethod(prev => !prev)}>
+          <Show className="groupSub" />
+          <span className="groupSub"> Method</span>
         </div>
       ) : (
-        <div className="showItem">
-          <Show />
-          <span> Method</span>
+        <div className="groupMaster group" onClick={() => setshowMethod(prev => !prev)}>
+          <Hide className="groupSub" />
+          <span className="groupSub"> Method</span>
         </div>
       )}
-      <div
-        className={`transition-all ease-in ${
-          !showMethod && 'transition-all scale-y-0 h-0 -translate-x-full ease-out'
-        }`}
-      >
+      <div className={`transIn ${!showMethod && 'transOut'}`}>
         {method.map(meth => (
           <Method
             key={meth._id}
@@ -79,31 +76,31 @@ const page = ({ params }: { params: CustType }) => {
         ))}
       </div>
       <hr />
+      {/* METHOD ENDS  */}
+      {/* CONTACT STARTS  */}
       {showContact ? (
-        <>
-          <div
-            className="groupMaster group"
-            onClick={() => setshowContact(prev => !prev)}
-          >
-            <Hide className="groupSub" />
-            <span className="groupSub"> Contact</span>
-          </div>
-          {contact.map(cont => (
-            <Contact
-              key={cont._id}
-              name={cont.name}
-              email={cont.email}
-              tel={cont.tel}
-              _id={cont._id}
-            />
-          ))}
-        </>
-      ) : (
         <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
           <Show className="groupSub" />
           <span className="groupSub"> Contact</span>
         </div>
+      ) : (
+        <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
+          <Hide className="groupSub" />
+          <span className="groupSub"> Contact</span>
+        </div>
       )}
+      <div className={`transIn ${!showContact && 'transOut'}`}>
+        {contact.map(cont => (
+          <Contact
+            key={cont._id}
+            name={cont.name}
+            email={cont.email}
+            tel={cont.tel}
+            _id={cont._id}
+          />
+        ))}
+      </div>
+      {/* CONTACT ENDS */}
       {showServer ? (
         <>
           <Hide onClick={() => setshowServer(prev => !prev)} />
