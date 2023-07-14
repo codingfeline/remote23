@@ -24,7 +24,6 @@ export type ServerType = {
 export type ServerSetupType = {
   comment: string
   screenshot: string
-  path: string
 } & id
 
 export type DevicePasswordType = {

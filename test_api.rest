@@ -1,0 +1,62 @@
+get {{url-remote}}
+###
+get {{url}}/users 
+###
+get {{url}}/users/chloie
+###
+delete {{url}}/users/chloie
+###
+post {{url}}/users
+Content-Type: application/json
+
+{
+  "fname": "new"
+}
+
+###
+get {{url}}/restaurants
+###
+get {{url}}/restaurants/2334b925-802e-4161-b5dd-de53315c9325
+
+###
+POST {{url}}/login
+Content-Type: application/json
+
+{
+  "email": "{{user2}}",
+  "password": "{{pass2}}" 
+}
+###
+POST {{url}}/login
+Content-Type: application/json
+
+{
+  "email": "{{user3}}",
+  "password": "{{pass3}}" 
+}
+###
+POST {{url}}/login
+Content-Type: application/json
+
+{
+  "email": "{{user1}}",
+  "password": "wrongpassword" 
+}
+###
+POST {{url}}/login
+Content-Type: application/json
+
+{
+  "email": "{{user1}}",
+  "password": "wrongpassword" 
+}
+###
+GET {{url-journals}}
+###
+POST {{url-jornals-login}}
+Content-Type: application/json
+
+{
+  "email": "{{user4}}",
+  "password": "{{pass4}}" 
+}

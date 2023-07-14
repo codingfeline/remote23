@@ -23,22 +23,62 @@ body {
 }
 
 @layer base {
-  h1 {
-    @apply text-4xl;
+  [type='text'],
+  [type='submit'],
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  button,
+  textarea,
+  select {
+    @apply w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-200 mt-1;
   }
-  h2 {
-    @apply text-3xl;
+  button {
+    @apply p-2 hover:bg-red-200 transition-colors;
   }
-  h3 {
-    @apply text-2xl;
+  [type='checkbox'],
+  [type='radio'] {
+    @apply rounded border-gray-300 text-indigo-500 focus:ring-indigo-500 mr-2;
   }
-  h4 {
-    @apply text-xl;
+  [type='submit'] {
+    @apply cursor-pointer hover:bg-slate-300;
   }
-
-  h5 {
-    @apply text-base;
-  }
+}
+form {
+  @apply mt-2;
+}
+form div {
+  @apply mb-3;
+}
+label span {
+  @apply text-red-400 float-right pr-2 italic;
+}
+h6 {
+  @apply text-lg;
+}
+h5 {
+  @apply text-xl;
+}
+h4 {
+  @apply text-2xl;
+}
+h3 {
+  @apply text-3xl;
+}
+h2 {
+  @apply text-4xl;
+}
+h1 {
+  @apply text-5xl;
 }
 
 .lg-react-element {
@@ -49,17 +89,41 @@ body {
   @apply p-1;
 }
 
-.contact {
-  @apply flex flex-col bg-gray-200 p-2;
+.contact,
+.server,
+.method,
+.device {
+  @apply flex flex-col p-2;
 }
 
 .item {
-  @apply text-blue-500 bg-gray-300 p-2 flex;
+  @apply p-2 flex items-center;
 }
-.item label {
-  @apply w-[70px] mr-2;
+label {
+  @apply w-[80px] mr-2;
 }
 
 input {
   @apply outline-none;
+}
+svg {
+  @apply text-gray-500 text-3xl ml-1 hover:cursor-pointer hover:text-gray-800;
+}
+
+nav svg {
+  @apply ml-0;
+}
+
+.item {
+  /* @apply select-none; */
+}
+a {
+  @apply hover:bg-gray-100 bg-gray-300 p-1 px-2 rounded-md;
+}
+
+.showItem {
+  @apply flex items-center cursor-pointer;
+}
+.showItem span {
+  @apply ml-2;
 }

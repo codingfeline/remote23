@@ -1,7 +1,9 @@
 'use client'
 
-import LightGallery from 'lightgallery/react'
+import { useAppDispatch, useAppSelector } from '@redux/hooks'
+import { increment } from '@redux/features/counter/counterSlice'
 
+import LightGallery from 'lightgallery/react'
 // import styles
 import 'lightgallery/css/lightgallery.css'
 import 'lightgallery/css/lg-zoom.css'
@@ -11,6 +13,8 @@ import lgThumbnail from 'lightgallery/plugins/thumbnail'
 import lgZoom from 'lightgallery/plugins/zoom'
 
 export default function Gallery() {
+  const counter = useAppSelector(state => state.counter.value)
+  const dispatch = useAppDispatch()
   const images = [
     { url: '/gallery/pic1.jpg', thumb: '/gallery/pic1_sm.jpg', alt: 'photo 1' },
     { url: '/gallery/pic2.jpg', thumb: '/gallery/pic2_sm.jpg', alt: 'photo 2' },
@@ -27,9 +31,11 @@ export default function Gallery() {
   }
   return (
     <div className="">
+      {' '}
+      {counter} <button onClick={() => dispatch(increment())}>increment</button>
       <LightGallery onInit={onInit} speed={500} plugins={[lgThumbnail, lgZoom]}>
         {images.map(i => (
-          <a href={i.url}>
+          <a key={i.url} href={i.url}>
             <img src={i.thumb} alt={i.alt && i.alt} />
           </a>
         ))}

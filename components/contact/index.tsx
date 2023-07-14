@@ -4,8 +4,8 @@ import { ContactType } from '@utils/types/customer'
 const page = (contact: ContactType) => {
   const counter = useAppSelector(state => state.counter.value)
   return (
-    <div className="contact">
-      <h4>contact {counter}</h4>
+    <div className="contact bg-blue-100">
+      <h4>contact</h4>
       <div className="item">
         <label htmlFor="name">name</label>
         <input type="text" value={contact.name} readOnly />

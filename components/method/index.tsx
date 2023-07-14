@@ -4,7 +4,7 @@ import { Copy, Edit, Plus, UserPass, useAppDispatch, increment, MethodInfoType }
 const page = (method: MethodInfoType) => {
   const dispatch = useAppDispatch()
   return (
-    <div className="method">
+    <div className="method bg-yellow-100">
       <div className="flex justify-between">
         <Edit />
         <Plus onClick={() => dispatch(increment())} />

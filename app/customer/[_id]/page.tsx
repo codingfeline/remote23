@@ -1,18 +1,20 @@
 'use client'
 
 //prettier-ignore
-import {  useAppSelector, useEffect, useState, Contact, Show, Hide, Link, CustType, ContactType, MethodInfoType, Method, ServerType, Server, DevicePasswordType, Device } from '@components'
+import {  useAppSelector, useEffect, useState, Contact, Show, Hide, Link, CustType, ContactType, MethodInfoType, Method, ServerType, Server, DevicePasswordType, Device, ServerSetupType, Setup } from '@components'
 
 const page = ({ params }: { params: CustType }) => {
   const customers = useAppSelector(state => state.customer.value)
   const [customer, setCustomer] = useState<CustType | null>(null)
   const [show, setShow] = useState(false)
+  const [showMethod, setshowMethod] = useState(true)
   const [showContact, setshowContact] = useState(true)
   const [showServer, setshowServer] = useState(true)
   const [contact, setContact] = useState<ContactType[]>([])
   const [method, setMethod] = useState<MethodInfoType[]>([])
   const [server, setServer] = useState<ServerType[]>([])
   const [devicePassword, setdevicePassword] = useState<DevicePasswordType[]>([])
+  const [serverSetup, setServerSetup] = useState<ServerSetupType[]>([])
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,6 +26,7 @@ const page = ({ params }: { params: CustType }) => {
       setMethod(filteredData.methodInfo)
       setServer(filteredData.server)
       setdevicePassword(filteredData.devicePassword)
+      setServerSetup(filteredData.serverSetup)
     }
 
     if (params?._id) fetchPosts()
@@ -47,21 +50,41 @@ const page = ({ params }: { params: CustType }) => {
       )}
       {show && <pre>{JSON.stringify(customer, null, 2)}</pre>}
       <hr />
-      {method.map(meth => (
-        <Method
-          key={meth._id}
-          methodName={meth.methodName}
-          url={meth.url}
-          username={meth.username}
-          password={meth.password}
-          notes={meth.notes}
-          _id={meth._id}
-        />
-      ))}
+      {showMethod ? (
+        <div className="showItem">
+          <Hide onClick={() => setshowMethod(prev => !prev)} />
+          <span> Method</span>
+        </div>
+      ) : (
+        <div className="showItem">
+          <Show onClick={() => setshowMethod(prev => !prev)} />
+          <span> Method</span>
+        </div>
+      )}
+      <div
+        className={`transition-all ease-in ${
+          !showMethod && 'transition-all scale-y-0 h-0 -translate-x-full ease-out'
+        }`}
+      >
+        {method.map(meth => (
+          <Method
+            key={meth._id}
+            methodName={meth.methodName}
+            url={meth.url}
+            username={meth.username}
+            password={meth.password}
+            notes={meth.notes}
+            _id={meth._id}
+          />
+        ))}
+      </div>
       <hr />
       {showContact ? (
         <>
-          <div className="showItem group" onClick={() => setshowContact(prev => !prev)}>
+          <div
+            className="showItem group delay-500 transition-all"
+            onClick={() => setshowContact(prev => !prev)}
+          >
             <Hide />
             <span> Contact</span>
           </div>
@@ -104,6 +127,9 @@ const page = ({ params }: { params: CustType }) => {
           username={device.username}
           password={device.password}
         />
+      ))}
+      {serverSetup.map(setup => (
+        <Setup key={setup._id} comment={setup.comment} screenshot={setup.screenshot} />
       ))}
     </>
   )

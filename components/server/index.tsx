@@ -2,8 +2,7 @@ import { UserPass, ServerType } from '@components'
 
 const page = (server: ServerType) => {
   return (
-    <div className="server">
-      <h4>server</h4>
+    <div className="server bg-lime-100">
       <div className="item">
         <label htmlFor="name">name</label>
         <input type="text" value={server.name} />
