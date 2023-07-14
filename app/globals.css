@@ -133,3 +133,9 @@ a {
 .groupMaster {
   @apply showItem delay-500 transition-all flex bg-red-100 items-center justify-center select-none;
 }
+.transIn {
+  @apply transition-all ease-in;
+}
+.transOut {
+  @apply transition-all scale-y-0 h-0 -translate-x-full ease-out;
+}
