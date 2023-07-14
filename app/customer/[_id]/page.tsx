@@ -51,13 +51,13 @@ const page = ({ params }: { params: CustType }) => {
       {show && <pre>{JSON.stringify(customer, null, 2)}</pre>}
       <hr />
       {showMethod ? (
-        <div className="showItem">
-          <Hide onClick={() => setshowMethod(prev => !prev)} />
+        <div className="showItem" onClick={() => setshowMethod(prev => !prev)}>
+          <Hide />
           <span> Method</span>
         </div>
       ) : (
         <div className="showItem">
-          <Show onClick={() => setshowMethod(prev => !prev)} />
+          <Show />
           <span> Method</span>
         </div>
       )}
@@ -82,11 +82,11 @@ const page = ({ params }: { params: CustType }) => {
       {showContact ? (
         <>
           <div
-            className="showItem group delay-500 transition-all"
+            className="groupMaster group"
             onClick={() => setshowContact(prev => !prev)}
           >
-            <Hide />
-            <span> Contact</span>
+            <Hide className="groupSub" />
+            <span className="groupSub"> Contact</span>
           </div>
           {contact.map(cont => (
             <Contact
@@ -99,9 +99,9 @@ const page = ({ params }: { params: CustType }) => {
           ))}
         </>
       ) : (
-        <div className="showItem" onClick={() => setshowContact(prev => !prev)}>
-          <Show />
-          <span> Contact</span>
+        <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
+          <Show className="groupSub" />
+          <span className="groupSub"> Contact</span>
         </div>
       )}
       {showServer ? (
