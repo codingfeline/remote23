@@ -1,58 +1,64 @@
 // prettier-ignore
-import { Copy, Edit, Plus, UserPass, useAppDispatch, increment, MethodInfoType, useState } from '@components'
+import { Copy, Edit, Plus, UserPass, useAppDispatch, increment, MethodInfoType, useState, Show, Hide } from '@components'
+import { setCopy, removeCopy } from '@redux/features/copy/copySlice'
 
-const page = (method: MethodInfoType) => {
+const page = ({ method }: { method: MethodInfoType[] }) => {
   const [copyStatus, setcopyStatus] = useState<string | null>(null)
+  const [showMethod, setshowMethod] = useState(true)
+
   const dispatch = useAppDispatch()
 
   const displayTimer = (txt: string) => {
-    navigator.clipboard.writeText(txt)
-    setcopyStatus(txt)
+    dispatch(setCopy(txt))
     setTimeout(() => {
-      setcopyStatus('')
-    }, 700)
+      dispatch(removeCopy())
+    }, 1000)
   }
-  return (
-    <div className="method bg-yellow-100">
-      <div className="flex justify-between">
-        <Edit />
-        {/* DISPLAY COPIED CLIPBOARD */}
-        <span className={`transition-opacity ${copyStatus ? 'opacity-1' : ' opacity-0'}`}>
-          {copyStatus && (
-            <>
-              Copied <i>{copyStatus}</i>
-            </>
-          )}
-        </span>
-        <Plus onClick={() => dispatch(increment())} />
-      </div>
-      <div className="item">
-        <label htmlFor="name">name</label>
-        <input type="text" id="name" value={method.methodName} />
-      </div>
-      <div className="item">
-        <label htmlFor="url">URL</label>
-        <input type="text" value={method.url} />
-        <Copy onClick={() => displayTimer(method.url)} />
-      </div>
-      <div className="item">
-        <label htmlFor="username">username</label>
-        <input type="text" value={method.username} />
 
-        <Copy onClick={() => displayTimer(method.username)} />
+  return (
+    <>
+      <div className="groupMaster group" onClick={() => setshowMethod(prev => !prev)}>
+        {showMethod ? <Show className="groupSub" /> : <Hide className="groupSub" />}
+        <span className="groupSub"> Method</span>
       </div>
-      <div className="item">
-        <label htmlFor="password">password</label>
-        <input type="text" value={method.password} />
-        <Copy onClick={() => displayTimer(method.password)} />
+      <div className={`transIn ${!showMethod && 'transOut'}`}>
+        {method.map(meth => (
+          <div className="method bg-yellow-100">
+            <div className="flex justify-between">
+              <Edit />
+
+              <Plus onClick={() => dispatch(increment())} />
+            </div>
+            <div className="item">
+              <label htmlFor="name">name</label>
+              <input type="text" id="name" value={meth.methodName} />
+            </div>
+            <div className="item">
+              <label htmlFor="url">URL</label>
+              <input type="text" value={meth.url} />
+              <Copy onClick={() => navigator.clipboard.writeText(meth.url)} />
+            </div>
+            <div className="item">
+              <label htmlFor="username">username</label>
+              <input type="text" value={meth.username} />
+
+              <Copy onClick={() => navigator.clipboard.writeText(meth.username)} />
+            </div>
+            <div className="item">
+              <label htmlFor="password">password</label>
+              <input type="text" value={meth.password} />
+              <Copy onClick={() => navigator.clipboard.writeText(meth.password)} />
+            </div>
+            <div className="item">
+              <label htmlFor="notes"></label>
+              <textarea name="" id="notes" cols={30} rows={3}>
+                {meth.notes}
+              </textarea>
+            </div>
+          </div>
+        ))}
       </div>
-      <div className="item">
-        <label htmlFor="notes"></label>
-        <textarea name="" id="notes" cols={30} rows={3}>
-          {method.notes}
-        </textarea>
-      </div>
-    </div>
+    </>
   )
 }
 
