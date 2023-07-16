@@ -1,15 +1,17 @@
 'use client'
 
 //prettier-ignore
-import {  useAppSelector, useEffect, useState, Contact, Show, Hide, Link, CustType, ContactType, MethodInfoType, Method, ServerType, Server, DevicePasswordType, Device, ServerSetupType, Setup } from '@components'
+import {  useAppSelector, useAppDispatch, useEffect, useState, Contact, Show, Hide, Link, CustType, ContactType, MethodInfoType, Method, ServerType, Server, DevicePasswordType, Device, ServerSetupType, Setup } from '@components'
 
 const page = ({ params }: { params: CustType }) => {
+  const url = 'https://remoteapi.nazs.net/api/customers'
   const customers = useAppSelector(state => state.customer.value)
+  const copy = useAppSelector(state => state.copy.value)
+
   const [customer, setCustomer] = useState<CustType | null>(null)
   const [show, setShow] = useState(false)
   const [showMethod, setshowMethod] = useState(true)
-  const [showContact, setshowContact] = useState(true)
-  const [showServer, setshowServer] = useState(true)
+
   const [showDevice, setshowDevice] = useState(true)
   const [showSetup, setshowSetup] = useState(true)
   const [contact, setContact] = useState<ContactType[]>([])
@@ -20,7 +22,7 @@ const page = ({ params }: { params: CustType }) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`https://remoteapi.nazs.net/api/customers`)
+      const response = await fetch(url)
       const data = await response.json()
       const filteredData = data.filter((c: CustType) => c._id === params._id)[0]
       setCustomer(filteredData)
@@ -36,6 +38,14 @@ const page = ({ params }: { params: CustType }) => {
 
   return (
     <>
+      {/* DISPLAY COPIED CLIPBOARD */}
+      <span className={`transition-opacity ${copy ? 'opacity-1' : ' opacity-0'}`}>
+        {copy && (
+          <>
+            Copied <i>{copy}</i>
+          </>
+        )}
+      </span>
       <div className="flex gap-1 flex-wrap">
         {customers.map((cust: CustType) => (
           <Link key={cust._id} href={`/customer/${cust._id}`}>
@@ -60,7 +70,6 @@ const page = ({ params }: { params: CustType }) => {
       <div className={`transIn ${!showMethod && 'transOut'}`}>
         {method.map(meth => (
           <Method
-            key={meth._id}
             methodName={meth.methodName}
             url={meth.url}
             notes={meth.notes}
@@ -72,40 +81,8 @@ const page = ({ params }: { params: CustType }) => {
       </div>
       <hr />
       {/* METHOD ENDS  */}
-      {/* CONTACT STARTS  */}
-      <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
-        {showContact ? <Show className="groupSub" /> : <Hide className="groupSub" />}
-        <span className="groupSub"> Contact</span>
-      </div>
-      <div className={`transIn ${!showContact && 'transOut'}`}>
-        {contact.map(cont => (
-          <Contact
-            key={cont._id}
-            name={cont.name}
-            email={cont.email}
-            tel={cont.tel}
-            _id={cont._id}
-          />
-        ))}
-      </div>
-      {/* CONTACT ENDS */}
-      {/* SERVER STARTS */}
-      <div className="groupMaster group" onClick={() => setshowServer(prev => !prev)}>
-        {showServer ? <Show className="groupSub" /> : <Hide className="groupSub" />}
-        <span className="groupSub">Server</span>
-      </div>
-      <div className={`transIn ${!showServer && 'transOut'}`}>
-        {server.map(serv => (
-          <Server
-            key={serv._id}
-            name={serv.name}
-            username={serv.username}
-            password={serv.password}
-            ip={serv.ip}
-          />
-        ))}
-      </div>
-      {/* SERVER ENDS */}
+      <Contact contact={contact} />
+      <Server server={server} />
       {/* DEVICE STARTS */}
       <div className="groupMaster group" onClick={() => setshowDevice(prev => !prev)}>
         {showDevice ? <Show className="groupSub" /> : <Hide className="groupSub" />}
@@ -127,7 +104,7 @@ const page = ({ params }: { params: CustType }) => {
         {showSetup ? <Show className="groupSub" /> : <Hide className="groupSub" />}
         <span className="groupSub">Screenshots</span>
       </div>
-      <div className={`transIn ${showSetup && 'transOut'}`}>
+      <div className={`transIn ${!showSetup && 'transOut'}`}>
         {serverSetup.map(setup => (
           <Setup key={setup._id} comment={setup.comment} screenshot={setup.screenshot} />
         ))}
