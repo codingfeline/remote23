@@ -1,14 +1,24 @@
-import { UserPass, DevicePasswordType } from '@components'
+import { UserPass, DevicePasswordType, useState, Show, Hide } from '@components'
 
-const index = (user: DevicePasswordType) => {
+const index = ({ device }: { device: DevicePasswordType[] }) => {
+  const [showDevice, setshowDevice] = useState(true)
   return (
     <div className="device">
-      <h4>device</h4>
-      <div className="item">
-        <label htmlFor="make">make</label>
-        <input type="text" value={user.make} />
+      <div className="groupMaster group" onClick={() => setshowDevice(prev => !prev)}>
+        {showDevice ? <Show className="groupSub" /> : <Hide className="groupSub" />}
+        <span className="groupSub">Device</span>
       </div>
-      <UserPass username={user.username} password={user.password} />
+      <div className={`transIn ${!showDevice && 'transOut'}`}>
+        {device.map(dev => (
+          <div className="bg-orange-100 sub">
+            <div className="item">
+              <label htmlFor="make">make</label>
+              <input type="text" value={dev.make} />
+            </div>
+            <UserPass username={dev.username} password={dev.password} />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
