@@ -1,24 +1,35 @@
-import { useAppSelector } from '@components'
 import { ContactType } from '@utils/types/customer'
+import { Show, Hide, useState } from '@components'
 
-const page = (contact: ContactType) => {
-  const counter = useAppSelector(state => state.counter.value)
+const page = ({ contact }: { contact: ContactType[] }) => {
+  const [showContact, setshowContact] = useState(true)
+
   return (
-    <div className="contact bg-blue-100">
-      <h4>contact</h4>
-      <div className="item">
-        <label htmlFor="name">name</label>
-        <input type="text" value={contact.name} readOnly />
+    <>
+      <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
+        {showContact ? <Show className="groupSub" /> : <Hide className="groupSub" />}
+        <span className="groupSub"> Contact</span>
       </div>
-      <div className="item">
-        <label htmlFor="email">email</label>
-        <input type="text" value={contact.email} readOnly />
+      <div className={`transIn ${!showContact && 'transOut'}`}>
+        {contact.map(cont => (
+          <div className="contact bg-blue-100">
+            <h4>contact</h4>
+            <div className="item">
+              <label htmlFor="name">name</label>
+              <input type="text" value={cont.name} readOnly />
+            </div>
+            <div className="item">
+              <label htmlFor="email">email</label>
+              <input type="text" value={cont.email} readOnly />
+            </div>
+            <div className="item">
+              <label htmlFor="tel">tel</label>
+              <input type="text" value={cont.tel} readOnly />
+            </div>
+          </div>
+        ))}
       </div>
-      <div className="item">
-        <label htmlFor="tel">tel</label>
-        <input type="text" value={contact.tel} readOnly />
-      </div>
-    </div>
+    </>
   )
 }
 
