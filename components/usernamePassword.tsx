@@ -1,6 +1,8 @@
 import { Copy, UserPassType, useState } from '@components'
+import { useAppDispatch } from '@components'
 
 const page = (user: UserPassType) => {
+  const dispatch = useAppDispatch()
   const [copy, setCopy] = useState<string | null>(null)
   const displayTimer = (txt: string) => {
     setCopy(txt)
@@ -12,14 +14,13 @@ const page = (user: UserPassType) => {
     <>
       <div className="item">
         <label htmlFor="username">username</label>
-        <input type="text" value={user.username} />
-
-        <Copy onClick={() => displayTimer(user.username)} />
+        <input type="text" value={user.username} readOnly />
+        <Copy onClick={() => navigator.clipboard.writeText(user.username)} />
       </div>
       <div className="item">
         <label htmlFor="password">password</label>
-        <input type="text" value={user.password} />
-        <Copy onClick={() => displayTimer(user.password)} />
+        <input type="text" value={user.password} readOnly />
+        <Copy onClick={() => navigator.clipboard.writeText(user.password)} />
       </div>
     </>
   )

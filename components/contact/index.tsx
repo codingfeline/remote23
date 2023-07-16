@@ -1,19 +1,17 @@
-import { ContactType } from '@utils/types/customer'
-import { Show, Hide, useState } from '@components'
+import { Show, Hide, useState, ContactType } from '@components'
 
 const page = ({ contact }: { contact: ContactType[] }) => {
   const [showContact, setshowContact] = useState(true)
 
   return (
-    <>
+    <div className="contact">
       <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
         {showContact ? <Show className="groupSub" /> : <Hide className="groupSub" />}
         <span className="groupSub"> Contact</span>
       </div>
       <div className={`transIn ${!showContact && 'transOut'}`}>
         {contact.map(cont => (
-          <div className="contact bg-blue-100">
-            <h4>contact</h4>
+          <div className="bg-blue-100 sub">
             <div className="item">
               <label htmlFor="name">name</label>
               <input type="text" value={cont.name} readOnly />
@@ -29,7 +27,7 @@ const page = ({ contact }: { contact: ContactType[] }) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

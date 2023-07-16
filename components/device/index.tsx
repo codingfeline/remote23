@@ -2,6 +2,7 @@ import { UserPass, DevicePasswordType, useState, Show, Hide } from '@components'
 
 const index = ({ device }: { device: DevicePasswordType[] }) => {
   const [showDevice, setshowDevice] = useState(true)
+
   return (
     <div className="device">
       <div className="groupMaster group" onClick={() => setshowDevice(prev => !prev)}>
