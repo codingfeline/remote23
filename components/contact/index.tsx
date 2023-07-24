@@ -1,10 +1,10 @@
 import { Show, Hide, useState, ContactType } from '@components'
 
 const page = ({ contact }: { contact: ContactType[] }) => {
-  const [showContact, setshowContact] = useState(true)
+  const [showContact, setshowContact] = useState(false)
 
   return (
-    <div className="contact">
+    <div className="contact bg-blue-100">
       <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
         {showContact ? <Show className="groupSub" /> : <Hide className="groupSub" />}
         <span className="groupSub"> Contact</span>

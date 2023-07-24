@@ -4,7 +4,7 @@ const index = ({ device }: { device: DevicePasswordType[] }) => {
   const [showDevice, setshowDevice] = useState(true)
 
   return (
-    <div className="device">
+    <div className="device bg-orange-100">
       <div className="groupMaster group" onClick={() => setshowDevice(prev => !prev)}>
         {showDevice ? <Show className="groupSub" /> : <Hide className="groupSub" />}
         <span className="groupSub">Device</span>

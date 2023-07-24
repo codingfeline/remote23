@@ -1,10 +1,10 @@
 import { UserPass, ServerType, useState, Show, Hide } from '@components'
 
 const page = ({ server }: { server: ServerType[] }) => {
-  const [showServer, setshowServer] = useState(true)
+  const [showServer, setshowServer] = useState(false)
 
   return (
-    <div className="server">
+    <div className="server bg-lime-100">
       <div className="groupMaster group" onClick={() => setshowServer(prev => !prev)}>
         {showServer ? <Show className="groupSub" /> : <Hide className="groupSub" />}
         <span className="groupSub">Server</span>

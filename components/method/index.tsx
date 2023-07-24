@@ -16,14 +16,14 @@ const page = ({ method }: { method: MethodInfoType[] }) => {
   }
 
   return (
-    <>
+    <div className="method bg-yellow-100">
       <div className="groupMaster group" onClick={() => setshowMethod(prev => !prev)}>
         {showMethod ? <Show className="groupSub" /> : <Hide className="groupSub" />}
         <span className="groupSub"> Method</span>
       </div>
       <div className={`transIn ${!showMethod && 'transOut'}`}>
         {method.map(meth => (
-          <div className="method bg-yellow-100">
+          <div className=" bg-yellow-100 sub">
             <div className="flex justify-between">
               <Edit />
 
@@ -58,7 +58,7 @@ const page = ({ method }: { method: MethodInfoType[] }) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

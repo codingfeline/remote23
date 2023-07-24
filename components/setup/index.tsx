@@ -4,14 +4,14 @@ const index = ({ setup }: { setup: ServerSetupType[] }) => {
   const [showSetup, setshowSetup] = useState(true)
 
   return (
-    <div className="setup">
+    <div className="setup bg-purple-100">
       <div className="groupMaster group" onClick={() => setshowSetup(prev => !prev)}>
         {showSetup ? <Show className="groupSub" /> : <Hide className="groupSub" />}
         <span className="groupSub">Screenshots</span>
       </div>
       <div className={`transIn ${!showSetup && 'transOut'}`}>
         {setup.map(set => (
-          <div className="bg-lime-100 sub">
+          <div className="bg-purple-100 sub">
             <div className="item">
               <label htmlFor="comment">comment</label>
               <input type="text" value={set.comment} />
