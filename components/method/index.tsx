@@ -31,24 +31,14 @@ const method = ({ method }: { method: MethodInfoType[] }) => {
             </div>
             <div className="item">
               <label htmlFor="name">name</label>
-              <input type="text" id="name" value={meth.methodName} />
+              <input type="text" id="name" value={meth.methodName} readOnly />
             </div>
             <div className="item">
               <label htmlFor="url">URL</label>
-              <input type="text" value={meth.url} />
+              <input type="text" value={meth.url} readOnly />
               <Copy onClick={() => navigator.clipboard.writeText(meth.url)} />
             </div>
-            <div className="item">
-              <label htmlFor="username">username</label>
-              <input type="text" value={meth.username} />
-
-              <Copy onClick={() => navigator.clipboard.writeText(meth.username)} />
-            </div>
-            <div className="item">
-              <label htmlFor="password">password</label>
-              <input type="text" value={meth.password} />
-              <Copy onClick={() => navigator.clipboard.writeText(meth.password)} />
-            </div>
+            <UserPass username={meth.username} password={meth.password} />
             <div className="item">
               <label htmlFor="notes"></label>
               <textarea
@@ -57,6 +47,7 @@ const method = ({ method }: { method: MethodInfoType[] }) => {
                 id="notes"
                 cols={30}
                 rows={3}
+                readOnly
               ></textarea>
             </div>
           </div>

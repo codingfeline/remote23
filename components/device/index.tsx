@@ -14,7 +14,7 @@ const index = ({ device }: { device: DevicePasswordType[] }) => {
           <div key={dev._id} className="bg-orange-100 sub">
             <div className="item">
               <label htmlFor="make">make</label>
-              <input type="text" value={dev.make} />
+              <input type="text" value={dev.make} readOnly />
             </div>
             <UserPass username={dev.username} password={dev.password} />
           </div>

@@ -14,7 +14,7 @@ const index = ({ setup }: { setup: ServerSetupType[] }) => {
           <div key={set._id} className="bg-purple-100 sub">
             <div className="item">
               <label htmlFor="comment">comment</label>
-              <input type="text" value={set.comment} />
+              <input type="text" value={set.comment} readOnly />
             </div>
             <div className="item"></div>
             <label htmlFor="screenshot">screenshot</label>

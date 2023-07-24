@@ -18,7 +18,7 @@ const page = ({ server }: { server: ServerType[] }) => {
             </div>
             <div className="item">
               <label htmlFor="ip">IP</label>
-              <input type="text" value={serv.ip} />
+              <input type="text" value={serv.ip} readOnly />
             </div>
             <UserPass username={serv.username} password={serv.password} />
           </div>
