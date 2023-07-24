@@ -11,7 +11,7 @@ const page = ({ server }: { server: ServerType[] }) => {
       </div>
       <div className={`transIn ${!showServer && 'transOut'}`}>
         {server.map(serv => (
-          <div className=" bg-lime-100 sub">
+          <div key={serv._id} className=" bg-lime-100 sub">
             <div className="item">
               <label htmlFor="name">name</label>
               <input type="text" value={serv.name} readOnly />
