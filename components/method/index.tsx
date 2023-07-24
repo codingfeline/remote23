@@ -2,7 +2,7 @@
 import { Copy, Edit, Plus, UserPass, useAppDispatch, increment, MethodInfoType, useState, Show, Hide } from '@components'
 import { setCopy, removeCopy } from '@redux/features/copy/copySlice'
 
-const page = ({ method }: { method: MethodInfoType[] }) => {
+const method = ({ method }: { method: MethodInfoType[] }) => {
   const [copyStatus, setcopyStatus] = useState<string | null>(null)
   const [showMethod, setshowMethod] = useState(true)
 
@@ -23,7 +23,7 @@ const page = ({ method }: { method: MethodInfoType[] }) => {
       </div>
       <div className={`transIn ${!showMethod && 'transOut'}`}>
         {method.map(meth => (
-          <div className=" bg-yellow-100 sub">
+          <div key={meth._id} className=" bg-yellow-100 sub">
             <div className="flex justify-between">
               <Edit />
 
@@ -51,9 +51,13 @@ const page = ({ method }: { method: MethodInfoType[] }) => {
             </div>
             <div className="item">
               <label htmlFor="notes"></label>
-              <textarea name="" id="notes" cols={30} rows={3}>
-                {meth.notes}
-              </textarea>
+              <textarea
+                value={meth.notes}
+                name=""
+                id="notes"
+                cols={30}
+                rows={3}
+              ></textarea>
             </div>
           </div>
         ))}
@@ -62,4 +66,4 @@ const page = ({ method }: { method: MethodInfoType[] }) => {
   )
 }
 
-export default page
+export default method
