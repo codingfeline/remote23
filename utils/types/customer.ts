@@ -1,8 +1,11 @@
-export type Customers = {
+export type CustomerType = {
+  name: string
   solution: String
-  methodInfo: MethodInfoType
-  contact: ContactType
-  server: ServerType
+  methodInfo: MethodInfoType[]
+  contact: ContactType[]
+  server: ServerType[]
+  serverSetup: ServerSetupType[]
+  devicePassword: DevicePasswordType[]
 } & idName
 
 export type ContactType = {
