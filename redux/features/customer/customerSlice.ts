@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+import { Customers } from '@utils/types/customer'
 
 type Customer = {
   id: number
@@ -7,7 +8,7 @@ type Customer = {
 }
 type InitialState = {
   loading: boolean
-  customers: Customer[]
+  customers: Customers[]
   error: string
 }
 const initialState: InitialState = {
@@ -33,7 +34,7 @@ const customerSlice = createSlice({
     })
     builder.addCase(
       fetchCustomers.fulfilled,
-      (state, action: PayloadAction<Customer[]>) => {
+      (state, action: PayloadAction<Customers[]>) => {
         state.loading = false
         state.customers = action.payload
         state.error = ''
