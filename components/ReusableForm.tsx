@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { vpns } from '@utils/helpers'
+import TextInput from './TextInput'
 
 // Define types for the form data
 interface FormValues {
@@ -16,7 +17,6 @@ interface FormProps {
 
 const ReusableForm: React.FC<FormProps> = ({ onSubmit }) => {
   vpns.sort()
-  // State to store the form data
   const [formData, setFormData] = useState<FormValues>({
     name: '',
     email: '',
@@ -24,7 +24,6 @@ const ReusableForm: React.FC<FormProps> = ({ onSubmit }) => {
     method: '',
   })
 
-  // Handle form input changes
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -35,7 +34,6 @@ const ReusableForm: React.FC<FormProps> = ({ onSubmit }) => {
     }))
   }
 
-  // Handle form submission
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     onSubmit(formData)
@@ -43,38 +41,32 @@ const ReusableForm: React.FC<FormProps> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
+      <fieldset>
+        <legend>Customer</legend>
+        <TextInput
           name="name"
           value={formData.name}
           onChange={handleInputChange}
           required
         />
-      </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
+        <TextInput
           type="email"
-          id="email"
           name="email"
           value={formData.email}
           onChange={handleInputChange}
           required
         />
-      </div>
-      <div>
-        <label htmlFor="message">Message:</label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
+        <div>
+          <label htmlFor="message">Message:</label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+      </fieldset>
       <fieldset>
         <legend>Remote Method</legend>
         <div className="item flex flex-wrap">
