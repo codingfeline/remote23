@@ -1,7 +1,7 @@
 import { UserPass, DevicePasswordType, useState, Show, Hide } from '@components'
 
 const index = ({ device }: { device: DevicePasswordType[] }) => {
-  const [showDevice, setshowDevice] = useState(true)
+  const [showDevice, setshowDevice] = useState(device.length ? true : false)
 
   return (
     <div className="device bg-orange-100">

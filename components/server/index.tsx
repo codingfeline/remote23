@@ -1,7 +1,7 @@
 import { UserPass, ServerType, useState, Show, Hide } from '@components'
 
 const page = ({ server }: { server: ServerType[] }) => {
-  const [showServer, setshowServer] = useState(false)
+  const [showServer, setshowServer] = useState(server.length ? true : false)
 
   return (
     <div className="server bg-lime-100">

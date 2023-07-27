@@ -1,7 +1,7 @@
 import { ServerSetupType, useState, Show, Hide } from '@components'
 
 const index = ({ setup }: { setup: ServerSetupType[] }) => {
-  const [showSetup, setshowSetup] = useState(true)
+  const [showSetup, setshowSetup] = useState(setup.length ? true : false)
 
   return (
     <div className="setup bg-purple-100">

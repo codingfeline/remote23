@@ -1,7 +1,7 @@
 import { Show, Hide, useState, ContactType } from '@components'
 
 const page = ({ contact }: { contact: ContactType[] }) => {
-  const [showContact, setshowContact] = useState(false)
+  const [showContact, setshowContact] = useState(contact.length ? true : false)
 
   return (
     <div className="contact bg-blue-100">
