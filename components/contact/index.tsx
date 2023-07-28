@@ -4,25 +4,27 @@ const page = ({ contact }: { contact: ContactType[] }) => {
   const [showContact, setshowContact] = useState(contact.length ? true : false)
 
   return (
-    <div className="contact bg-blue-100">
+    <div className="contact bg-blue-100 border-blue-300">
       <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
         {showContact ? <Show className="groupSub" /> : <Hide className="groupSub" />}
         <span className="groupSub"> Contact</span>
       </div>
       <div className={`transIn ${!showContact && 'transOut'}`}>
         {contact.map(cont => (
-          <div key={cont._id} className="bg-blue-100 sub">
-            <div className="item">
-              <label htmlFor="name">name</label>
-              <input type="text" value={cont.name} readOnly />
-            </div>
-            <div className="item">
-              <label htmlFor="email">email</label>
-              <input type="text" value={cont.email} readOnly />
-            </div>
-            <div className="item">
-              <label htmlFor="tel">tel</label>
-              <input type="text" value={cont.tel} readOnly />
+          <div className="sub">
+            <div key={cont._id} className="bg-blue-100">
+              <div className="item">
+                <label htmlFor="name">name</label>
+                <input type="text" value={cont.name} readOnly />
+              </div>
+              <div className="item">
+                <label htmlFor="email">email</label>
+                <input type="text" value={cont.email} readOnly />
+              </div>
+              <div className="item">
+                <label htmlFor="tel">tel</label>
+                <input type="text" value={cont.tel} readOnly />
+              </div>
             </div>
           </div>
         ))}

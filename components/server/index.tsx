@@ -4,23 +4,25 @@ const page = ({ server }: { server: ServerType[] }) => {
   const [showServer, setshowServer] = useState(server.length ? true : false)
 
   return (
-    <div className="server bg-lime-100">
+    <div className="server bg-lime-100 border-lime-400">
       <div className="groupMaster group" onClick={() => setshowServer(prev => !prev)}>
         {showServer ? <Show className="groupSub" /> : <Hide className="groupSub" />}
         <span className="groupSub">Server</span>
       </div>
       <div className={`transIn ${!showServer && 'transOut'}`}>
         {server.map(serv => (
-          <div key={serv._id} className=" bg-lime-100 sub">
-            <div className="item">
-              <label htmlFor="name">name</label>
-              <input type="text" value={serv.name} readOnly />
+          <div className="sub">
+            <div key={serv._id} className=" bg-lime-100">
+              <div className="item">
+                <label htmlFor="name">name</label>
+                <input type="text" value={serv.name} readOnly />
+              </div>
+              <div className="item">
+                <label htmlFor="ip">IP</label>
+                <input type="text" value={serv.ip} readOnly />
+              </div>
+              <UserPass username={serv.username} password={serv.password} />
             </div>
-            <div className="item">
-              <label htmlFor="ip">IP</label>
-              <input type="text" value={serv.ip} readOnly />
-            </div>
-            <UserPass username={serv.username} password={serv.password} />
           </div>
         ))}
       </div>
