@@ -5,3 +5,11 @@ export const solutions: string[] = [
 export const vpns: string[] = [
   'Cisco AnyConnect', 'VMWare', 'FortiClient', 'Other', 'GlobalProtect', 'TeamViewer'
 ]
+
+export type TextInputProps = {
+  value: string
+  name: string
+  type?: string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  required?: boolean
+}
