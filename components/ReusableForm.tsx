@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { vpns } from '@utils/helpers'
 import TextInput from './TextInput'
+import { Copy, Plus } from '@components'
 
 // Define types for the form data
-interface FormValues {
+type FormValues = {
   name: string
   email: string
   message: string
@@ -89,7 +90,13 @@ const ReusableForm: React.FC<FormProps> = ({ onSubmit }) => {
       <div>
         <button type="submit">Submit</button>
       </div>
-      {/* {formData.name !== '' && JSON.stringify(formData)} */}
+      {/* <label className="toggle" htmlFor="myToggle">
+        <input className="toggle__input" name="" type="checkbox" id="myToggle" />
+        <div className="toggle__fill"></div>
+        <Plus className="hidden plus" />
+        <Copy className="copy" />
+      </label> */}
+      <pre>{formData.name !== '' && JSON.stringify(formData, null, 1)}</pre>
     </form>
   )
 }

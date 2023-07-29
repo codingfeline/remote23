@@ -1,5 +1,4 @@
-import { UserPassType } from '@components'
-import useCopyHook from './useCopyHook'
+import { UserPassType, useCopyHook } from '@components'
 
 const page = (user: UserPassType) => {
   const Username = useCopyHook(user.username)
