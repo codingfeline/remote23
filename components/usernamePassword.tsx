@@ -1,26 +1,19 @@
-import { Copy, UserPassType, useState } from '@components'
-import { useAppDispatch } from '@components'
+import { UserPassType } from '@components'
+import useCopyHook from './useCopyHook'
 
 const page = (user: UserPassType) => {
-  const dispatch = useAppDispatch()
-  const [copy, setCopy] = useState<string | null>(null)
-  const displayTimer = (txt: string) => {
-    setCopy(txt)
-    setTimeout(() => {
-      setCopy('')
-    }, 3000)
-  }
+  const Username = useCopyHook(user.username)
+  const Password = useCopyHook(user.password)
+
   return (
     <>
       <div className="item">
         <label htmlFor="username">username</label>
-        <input type="text" value={user.username} readOnly />
-        <Copy onClick={() => navigator.clipboard.writeText(user.username)} />
+        {Username}
       </div>
       <div className="item">
         <label htmlFor="password">password</label>
-        <input type="text" value={user.password} readOnly />
-        <Copy onClick={() => navigator.clipboard.writeText(user.password)} />
+        {Password}
       </div>
     </>
   )
