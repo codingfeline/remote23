@@ -21,6 +21,7 @@ export type { ServerType } from '@utils/types/customer'
 export type { UserPassType } from '@utils/types/customer'
 export type { DevicePasswordType } from '@utils/types/customer'
 export type { ServerSetupType } from '@utils/types/customer'
+export type { TextInputProps } from '@utils/helpers'
 
 export { default as axios } from 'axios'
 // export { default as parse } from 'html-react-parser'
@@ -30,10 +31,15 @@ export { useAppDispatch, useAppSelector } from '@redux/hooks'
 export { increment } from '@redux/features/counter/counterSlice'
 export { fetchCustomers } from '@redux/features/customer/customerSlice'
 
+// hooks
+export { default as ToggleHook } from './useToggle'
+export { default as useCopyHook } from './useCopyHook'
+
 // export { Dialog, Transition } from '@headlessui/react'
 export { FaBars } from 'react-icons/fa'
 export { MdContentCopy as Copy } from 'react-icons/md'
 export { MdOutlineEdit as Edit } from 'react-icons/md'
+export { MdDone as Check } from 'react-icons/md'
 
 // export { default as Modal } from './Modal'
 
