@@ -1,14 +1,15 @@
-import { UserPass, ServerType, useState, Show, Hide } from '@components'
+import { UserPass, ServerType, useState, ToggleHook } from '@components'
 
 const page = ({ server }: { server: ServerType[] }) => {
   const [showServer, setshowServer] = useState(server.length ? true : false)
 
+  const handleShowChange = (show: boolean) => {
+    setshowServer(show)
+  }
+
   return (
     <div className="server bg-lime-100 border-lime-400">
-      <div className="groupMaster group" onClick={() => setshowServer(prev => !prev)}>
-        {showServer ? <Show className="groupSub" /> : <Hide className="groupSub" />}
-        <span className="groupSub">Server</span>
-      </div>
+      <ToggleHook onShowChange={handleShowChange} name="Server" length={server.length} />
       <div className={`transIn ${!showServer && 'transOut'}`}>
         {server.map(serv => (
           <div className="sub">

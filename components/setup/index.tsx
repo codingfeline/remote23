@@ -1,14 +1,20 @@
 import { ServerSetupType, useState, Show, Hide } from '@components'
+import ToggleHook from '@components/useToggle'
 
 const index = ({ setup }: { setup: ServerSetupType[] }) => {
   const [showSetup, setshowSetup] = useState(setup.length ? true : false)
 
+  const handleShowChange = (show: boolean) => {
+    setshowSetup(show)
+  }
+
   return (
     <div className="setup bg-purple-100 border-purple-300">
-      <div className="groupMaster group" onClick={() => setshowSetup(prev => !prev)}>
-        {showSetup ? <Show className="groupSub" /> : <Hide className="groupSub" />}
-        <span className="groupSub">Screenshots</span>
-      </div>
+      <ToggleHook
+        onShowChange={handleShowChange}
+        name="Screenshots"
+        length={setup.length}
+      />
       <div className={`transIn ${!showSetup && 'transOut'}`}>
         {setup.map(set => (
           <div className="sub">

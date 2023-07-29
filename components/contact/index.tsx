@@ -1,14 +1,20 @@
-import { Show, Hide, useState, ContactType } from '@components'
+import { Show, Hide, useState, ContactType, Plus } from '@components'
+import ToggleHook from '@components/useToggle'
 
 const page = ({ contact }: { contact: ContactType[] }) => {
   const [showContact, setshowContact] = useState(contact.length ? true : false)
 
+  const handleShowChange = (show: boolean) => {
+    setshowContact(show)
+  }
+
   return (
     <div className="contact bg-blue-100 border-blue-300">
-      <div className="groupMaster group" onClick={() => setshowContact(prev => !prev)}>
-        {showContact ? <Show className="groupSub" /> : <Hide className="groupSub" />}
-        <span className="groupSub"> Contact</span>
-      </div>
+      <ToggleHook
+        onShowChange={handleShowChange}
+        name="Contact"
+        length={contact.length}
+      />
       <div className={`transIn ${!showContact && 'transOut'}`}>
         {contact.map(cont => (
           <div className="sub">

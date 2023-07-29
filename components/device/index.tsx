@@ -1,14 +1,15 @@
-import { UserPass, DevicePasswordType, useState, Show, Hide } from '@components'
+import { UserPass, DevicePasswordType, useState, ToggleHook } from '@components'
 
 const index = ({ device }: { device: DevicePasswordType[] }) => {
   const [showDevice, setshowDevice] = useState(device.length ? true : false)
 
+  const handleShowChange = (show: boolean) => {
+    setshowDevice(show)
+  }
+
   return (
     <div className="device bg-orange-100 border-orange-300">
-      <div className="groupMaster group" onClick={() => setshowDevice(prev => !prev)}>
-        {showDevice ? <Show className="groupSub" /> : <Hide className="groupSub" />}
-        <span className="groupSub">Device</span>
-      </div>
+      <ToggleHook onShowChange={handleShowChange} name="Device" length={device.length} />
       <div className={`transIn ${!showDevice && 'transOut'}`}>
         {device.map(dev => (
           <div className="sub">
