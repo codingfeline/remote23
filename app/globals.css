@@ -80,7 +80,15 @@ h2 {
 h1 {
   @apply text-5xl;
 }
-
+.customer {
+  @apply flex flex-wrap gap-1 m-1 items-center justify-center;
+}
+.link {
+  @apply bg-slate-100 hover:bg-slate-300 p-2 rounded-md border border-slate-200 cursor-pointer flex justify-center;
+}
+.customer a {
+  @apply link;
+}
 .lg-react-element {
   @apply flex gap-1 justify-center items-center p-2 flex-wrap w-3/4 mx-auto;
 }
@@ -94,21 +102,24 @@ h1 {
 .method,
 .setup,
 .device {
-  @apply flex flex-col flex-wrap border mb-1;
+  @apply flex flex-col  border mb-1;
 }
 
 .item {
-  @apply px-2 flex items-center;
+  @apply px-2 flex items-center justify-between;
 }
 label {
-  @apply w-[80px] mr-2;
+  @apply w-[100px] mr-2 text-gray-500 tracking-tight;
 }
 
 input {
   @apply outline-none;
 }
 svg {
-  @apply text-gray-500 text-[30px] ml-1 hover:cursor-pointer hover:text-gray-800 active:text-green-600;
+  @apply text-gray-500 text-[30px] ml-1 hover:cursor-pointer hover:text-gray-800;
+}
+svg.disabled {
+  @apply cursor-default;
 }
 
 nav svg {
@@ -118,9 +129,6 @@ nav svg {
 .item {
   /* @apply w-full; */
 }
-a {
-  @apply hover:bg-gray-100 bg-gray-300 p-1 px-2 rounded-sm;
-}
 
 .showItem {
   @apply flex items-center cursor-pointer;
@@ -128,26 +136,27 @@ a {
 .showItem span {
   @apply ml-2;
 }
-.groupSub {
-  @apply group-hover:text-gray-900;
+svg.groupSub {
+  @apply cursor-pointer transition;
+  /* @apply group-hover:translate-x-0 cursor-pointer transition translate-x-1; */
 }
 span.groupSub {
-  @apply text-gray-600;
+  @apply transition cursor-pointer;
 }
 .groupMaster {
-  @apply showItem delay-500 transition-all flex items-center justify-center select-none;
+  @apply showItem delay-500 transition-all flex items-center justify-between select-none;
 }
 .transIn {
-  @apply transition-all ease-in p-1 flex flex-col md:flex-row flex-wrap justify-center bg-white max-h-full;
+  @apply transition-all ease-in p-1 flex flex-col md:flex-row flex-wrap justify-center bg-white max-h-full bg-gray-100;
 }
 .transOut {
   @apply transition-all scale-y-0 max-h-0 ease-out;
 }
 .sub {
-  @apply border border-gray-200 mb-1 w-full md:w-1/2 lg:w-1/3 xl:w-[25%];
+  @apply border border-gray-200 mb-1 w-full md:w-1/2 lg:w-1/3 xl:w-1/4;
 }
 .sub > div {
-  @apply m-1;
+  @apply m-1 p-1;
 }
 .radioLabel {
   @apply flex items-center w-[300px] cursor-pointer;
@@ -162,3 +171,51 @@ legend {
 legend {
   @apply text-blue-300;
 } */
+.toggle {
+  --width: 40px;
+  --height: calc(var(--width) / 2);
+  --border-radius: calc(var(--height) / 2);
+
+  display: inline-block;
+  cursor: pointer;
+}
+.toggle__input {
+  display: none;
+}
+.toggle__fill {
+  position: relative;
+  width: var(--width);
+  height: var(--height);
+  border-radius: var(--border-radius);
+  background: #dddddd;
+  transition: background 0.2s;
+}
+.toggle__fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--height);
+  width: var(--height);
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  border-radius: var(--border-radius);
+  transition: transform 0.2s;
+}
+.toggle__input:checked ~ .toggle__fill {
+  background: #009578;
+}
+.toggle__input:checked ~ .plus {
+  display: inline-block;
+}
+.toggle__input:checked ~ .copy {
+  display: hidden;
+}
+
+.toggle__input ~ .copy {
+  display: inline-block;
+}
+
+.toggle__input:checked ~ .toggle__fill::after {
+  transform: translateX(var(--height));
+}
