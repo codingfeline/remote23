@@ -14,6 +14,7 @@ const index = ({ setup }: { setup: ServerSetupType[] }) => {
         onShowChange={handleShowChange}
         name="Screenshots"
         length={setup.length}
+        compo="addScreenshot"
       />
       <div className={`transIn ${!showSetup && 'transOut'}`}>
         {setup.map(set => (

@@ -1,4 +1,4 @@
-import { Show, Hide, useState, ContactType, Plus } from '@components'
+import { useState, ContactType } from '@components'
 import ToggleHook from '@components/useToggle'
 
 const page = ({ contact }: { contact: ContactType[] }) => {
@@ -14,6 +14,7 @@ const page = ({ contact }: { contact: ContactType[] }) => {
         onShowChange={handleShowChange}
         name="Contact"
         length={contact.length}
+        compo="addContact"
       />
       <div className={`transIn ${!showContact && 'transOut'}`}>
         {contact.map(cont => (

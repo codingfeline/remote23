@@ -1,4 +1,4 @@
-import { UserPass, DevicePasswordType, useState, ToggleHook } from '@components'
+import { UserPass, DevicePasswordType, useState, ToggleHook, Plus } from '@components'
 
 const index = ({ device }: { device: DevicePasswordType[] }) => {
   const [showDevice, setshowDevice] = useState(device.length ? true : false)
@@ -7,9 +7,16 @@ const index = ({ device }: { device: DevicePasswordType[] }) => {
     setshowDevice(show)
   }
 
+  const space = <Plus className="text-orange-100 hover:text-orange-100 disabled" />
+
   return (
     <div className="device bg-orange-100 border-orange-300">
-      <ToggleHook onShowChange={handleShowChange} name="Device" length={device.length} />
+      <ToggleHook
+        onShowChange={handleShowChange}
+        name="Device"
+        length={device.length}
+        compo="addDevice"
+      />
       <div className={`transIn ${!showDevice && 'transOut'}`}>
         {device.map(dev => (
           <div className="sub">
@@ -17,6 +24,7 @@ const index = ({ device }: { device: DevicePasswordType[] }) => {
               <div className="item">
                 <label htmlFor="make">make</label>
                 <input type="text" value={dev.make} readOnly />
+                {space}
               </div>
               <UserPass username={dev.username} password={dev.password} />
             </div>
