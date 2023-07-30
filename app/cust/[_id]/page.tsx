@@ -5,9 +5,11 @@ import {  useAppSelector, useAppDispatch, useEffect, useState, Contact, Show, Hi
 const cust = ({ params }: { params: CustomerType }) => {
   const dispatch = useAppDispatch()
   const customers = useAppSelector(state => state.customer.customers)
-  const cust = customers.filter((cust: CustomerType) => cust._id == params._id)[0]
+  const cust = customers.filter((cust: CustomerType) => cust._id === params._id)[0]
   const copy = useAppSelector(state => state.copy.value)
   const [show, setShow] = useState(false)
+  // const custRef = { name: cust.name, _id: cust._id }
+  localStorage.setItem('_id', JSON.stringify(params._id))
 
   useEffect(() => {
     dispatch(fetchCustomers())
@@ -26,13 +28,13 @@ const cust = ({ params }: { params: CustomerType }) => {
           </>
         )}
       </span>
-      <div className="flex gap-1 flex-wrap">
+      <div className="links">
+        <Link href="/">Home</Link>
         {customers.map(cust => (
           <Link key={cust._id} href={`./${cust._id}`}>
             {cust.name}
           </Link>
         ))}
-        <Link href="/">Home</Link>
       </div>
       {cust._id}, {cust.name}
       <hr />
@@ -48,6 +50,11 @@ const cust = ({ params }: { params: CustomerType }) => {
       <Server server={cust.server} />
       <Device device={cust.devicePassword} />
       <Setup setup={cust.serverSetup} />
+      {/* {cust.methodInfo.length ? <Method method={cust.methodInfo} /> : ''}
+      {cust.contact.length ? <Contact contact={cust.contact} /> : ''}
+      {cust.server.length ? <Server server={cust.server} /> : ''}
+      {cust.devicePassword.length ? <Device device={cust.devicePassword} /> : ''}
+      {cust.serverSetup.length ? <Setup setup={cust.serverSetup} /> : ''} */}
     </>
   )
 }
