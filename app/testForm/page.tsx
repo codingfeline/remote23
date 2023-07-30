@@ -9,7 +9,7 @@ interface FormValues {
   message: string
 }
 
-const MyFormComponent: React.FC = () => {
+const MyFormComponent = () => {
   const handleSubmitForm = (data: FormValues) => {
     // Do something with the form data, such as sending it to a server
     console.log(data)
