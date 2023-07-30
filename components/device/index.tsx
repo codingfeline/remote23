@@ -19,8 +19,8 @@ const index = ({ device }: { device: DevicePasswordType[] }) => {
       />
       <div className={`transIn ${!showDevice && 'transOut'}`}>
         {device.map(dev => (
-          <div className="sub">
-            <div key={dev._id} className="bg-orange-100">
+          <div key={dev._id} className="sub">
+            <div className="bg-orange-100">
               <div className="item">
                 <label htmlFor="make">make</label>
                 <input type="text" value={dev.make} readOnly />

@@ -20,8 +20,8 @@ const page = ({ server }: { server: ServerType[] }) => {
           const space = <Plus className="text-lime-100 hover:text-lime-100 disabled" />
 
           return (
-            <div className="sub">
-              <div key={serv._id} className=" bg-lime-100">
+            <div key={serv._id} className="sub">
+              <div className=" bg-lime-100">
                 <div className="item">
                   <label htmlFor="name">name</label>
                   <input type="text" value={serv.name} readOnly />

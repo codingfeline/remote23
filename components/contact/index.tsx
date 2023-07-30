@@ -18,8 +18,8 @@ const page = ({ contact }: { contact: ContactType[] }) => {
       />
       <div className={`transIn ${!showContact && 'transOut'}`}>
         {contact.map(cont => (
-          <div className="sub">
-            <div key={cont._id} className="bg-blue-100">
+          <div key={cont._id} className="sub">
+            <div className="bg-blue-100">
               <div className="item">
                 <label htmlFor="name">name</label>
                 <input type="text" value={cont.name} readOnly />

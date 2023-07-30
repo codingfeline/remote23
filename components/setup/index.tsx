@@ -18,8 +18,8 @@ const index = ({ setup }: { setup: ServerSetupType[] }) => {
       />
       <div className={`transIn ${!showSetup && 'transOut'}`}>
         {setup.map(set => (
-          <div className="sub">
-            <div key={set._id} className="bg-purple-100">
+          <div key={set._id} className="sub">
+            <div className="bg-purple-100">
               <div className="item">
                 <label htmlFor="comment">comment</label>
                 <input type="text" value={set.comment} readOnly />

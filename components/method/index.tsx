@@ -24,8 +24,8 @@ const method = ({ method }: { method: MethodInfoType[] }) => {
           )
 
           return (
-            <div className="sub">
-              <div key={meth._id} className=" bg-yellow-100">
+            <div key={meth._id} className="sub">
+              <div className=" bg-yellow-100">
                 <div className="flex justify-between">
                   <Edit />
                 </div>
