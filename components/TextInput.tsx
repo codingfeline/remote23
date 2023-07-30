@@ -1,12 +1,18 @@
-import { TextInputProps } from '@components'
+type TextInputProps = {
+  value: string
+  name: string
+  type?: string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  required?: boolean
+}
 
-const TextInput: React.FC<TextInputProps> = ({
+const TextInput = ({
   name,
   type = 'text',
   value,
   onChange,
   required = false,
-}) => {
+}: TextInputProps) => {
   return (
     <>
       <div className="item">
