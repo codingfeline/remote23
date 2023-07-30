@@ -21,7 +21,6 @@ export type { ServerType } from '@utils/types/customer'
 export type { UserPassType } from '@utils/types/customer'
 export type { DevicePasswordType } from '@utils/types/customer'
 export type { ServerSetupType } from '@utils/types/customer'
-export type { TextInputProps } from '@utils/helpers'
 
 export { default as axios } from 'axios'
 // export { default as parse } from 'html-react-parser'
@@ -34,6 +33,12 @@ export { fetchCustomers } from '@redux/features/customer/customerSlice'
 // hooks
 export { default as ToggleHook } from './useToggle'
 export { default as useCopyHook } from './useCopyHook'
+export { default as UseBack } from './useBack'
+export { default as UseForm } from './HandleForm'
+
+// inputs
+export { default as TextArea } from './TextArea'
+export { default as TextInput } from './TextInput'
 
 // export { Dialog, Transition } from '@headlessui/react'
 export { FaBars } from 'react-icons/fa'
