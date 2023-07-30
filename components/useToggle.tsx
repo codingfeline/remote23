@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { Show, Hide, Plus } from '@components'
+import { Show, Hide, Plus, Link, useState } from '@components'
 
 interface ToggleHookProps {
   onShowChange: (show: boolean) => void
   name: string
   length: number
+  compo: string
 }
 
-const ToggleHook: React.FC<ToggleHookProps> = ({ onShowChange, name, length }) => {
+const ToggleHook: React.FC<ToggleHookProps> = ({ onShowChange, name, length, compo }) => {
   const [show, setShow] = useState<boolean>(true)
 
   const handleShowChange = () => {
@@ -15,6 +15,13 @@ const ToggleHook: React.FC<ToggleHookProps> = ({ onShowChange, name, length }) =
     setShow(updatedShow)
     onShowChange(updatedShow) // Call the callback with the updated show value
   }
+  const link = JSON.parse(localStorage.getItem('_id') || '')
+
+  const add = (
+    <Link href={`/${compo}/${link}`}>
+      <Plus title={`Add new ${name}`} />
+    </Link>
+  )
 
   return (
     <div
@@ -30,17 +37,14 @@ const ToggleHook: React.FC<ToggleHookProps> = ({ onShowChange, name, length }) =
             ) : (
               <Hide className="groupSub translate-x-0" />
             )}
-            <span className={`groupSub ${show ? 'translate-x-2' : 'translate-x-1'}`}>
+            <span className={`groupSub  ${show ? ' tracking-[5px]' : ' tracking-wide'}`}>
               {name}
             </span>
           </div>
-          <Plus title={`Add new ${name}`} />
+          {add}
         </>
       ) : (
-        <>
-          <Plus title={`Add a ${name}`} />
-          {name}
-        </>
+        <> {add}</>
       )}
     </div>
   )
