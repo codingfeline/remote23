@@ -1,10 +1,13 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 interface FormData {
   [key: string]: string
 }
 
 const UseForm = (initialFormData: FormData) => {
+  const router = useRouter()
   const [formData, setFormData] = useState<FormData>(initialFormData)
 
   const handleInputChange = (
@@ -19,7 +22,17 @@ const UseForm = (initialFormData: FormData) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    console.log(formData) // You can perform any action with the form data here.
+    const _id = JSON.parse(localStorage.getItem('_id') || '')
+    const url = `http://localhost:3121/api/customers/${_id}/insertOne${formData.api}`
+    axios
+      .put(url, formData)
+      .then(res => {
+        if (res.statusText === 'OK') {
+          console.log(formData)
+          router.back()
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   return {
