@@ -1,4 +1,4 @@
-import { UserPassType, useCopyHook } from '@components'
+import { useCopyHook } from '@components'
 
 type UrlType = {
   url: string
@@ -7,12 +7,10 @@ const URL = (url: UrlType) => {
   const Url = useCopyHook(url.url)
 
   return (
-    <>
-      <div className="item">
-        <label htmlFor="url">url</label>
-        {Url}
-      </div>
-    </>
+    <div className="item">
+      <label htmlFor="url">url</label>
+      {Url}
+    </div>
   )
 }
 
