@@ -1,14 +1,16 @@
 'use client'
-
-import { CustomerType, TextArea, TextInput, UseBack, UseForm } from '@components'
+//prettier-ignore
+import { CustomerType, Link, TextArea, TextInput, UseBack, UseForm, axios } from '@components'
 
 const AddContact = ({ params }: { params: CustomerType }) => {
   const { formData, handleInputChange, handleSubmit } = UseForm({
-    name: '',
+    methodName: '',
     url: '',
     username: '',
     password: '',
-    note: '',
+    notes: '',
+    api: 'insertOneMethod',
+    cid: params._id || '',
   })
 
   return (
@@ -18,8 +20,8 @@ const AddContact = ({ params }: { params: CustomerType }) => {
         <fieldset>
           <legend>Remote Method</legend>
           <TextInput
-            name="name"
-            value={formData.name}
+            name="methodName"
+            value={formData.methodName}
             onChange={handleInputChange}
             required
           />
@@ -42,8 +44,8 @@ const AddContact = ({ params }: { params: CustomerType }) => {
             required
           />
           <TextArea
-            name="note"
-            value={formData.name}
+            name="notes"
+            value={formData.notes}
             required
             onChange={handleInputChange}
           />
@@ -53,6 +55,7 @@ const AddContact = ({ params }: { params: CustomerType }) => {
             Submit
           </button>
         </div>
+        <Link href={`/cust/${params._id}`}>go to cust</Link>
       </form>
       <UseBack />
     </>
@@ -60,3 +63,17 @@ const AddContact = ({ params }: { params: CustomerType }) => {
 }
 
 export default AddContact
+
+// this.$axios
+// .put(
+//   '/api/customers/' + this.id + '/insertOneMethod',
+//   { methodInfo },
+//   { headers: { token } }
+// )
+// .then((res) => {
+//   if (res.statusText === 'OK') {
+//     // console.log('insert ok', ip, id)
+//     this.getCustomers() // update data
+//     this.$router.push(`/customer/${this.id}`)
+//   }
+// })
