@@ -23,8 +23,7 @@ const UseForm = (initialFormData: FormData) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     console.log(formData)
-    const _id = JSON.parse(localStorage.getItem('_id') || '')
-    const url = `http://localhost:3121/api/customers/${_id}/${formData.api}`
+    const url = `http://localhost:3121/api/customers/${formData.cid}/${formData.api}`
     axios
       .put(url, formData)
       .then(res => {
