@@ -5,9 +5,16 @@ interface ToggleHookProps {
   name: string
   length: number
   compo: string
+  cid: string
 }
 
-const ToggleHook: React.FC<ToggleHookProps> = ({ onShowChange, name, length, compo }) => {
+const ToggleHook: React.FC<ToggleHookProps> = ({
+  onShowChange,
+  name,
+  length,
+  compo,
+  cid,
+}) => {
   const [show, setShow] = useState<boolean>(true)
 
   const handleShowChange = () => {
@@ -15,12 +22,14 @@ const ToggleHook: React.FC<ToggleHookProps> = ({ onShowChange, name, length, com
     setShow(updatedShow)
     onShowChange(updatedShow) // Call the callback with the updated show value
   }
-  const link = JSON.parse(localStorage.getItem('_id') || '')
 
   const add = (
-    <Link href={`/${compo}/${link}`}>
-      <Plus title={`Add new ${name}`} />
-    </Link>
+    <>
+      <Link href={`/${compo}/${cid}`}>
+        <Plus title={`Add new ${name}`} />
+        {/* {name} */}
+      </Link>
+    </>
   )
 
   return (
