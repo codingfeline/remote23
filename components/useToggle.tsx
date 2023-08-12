@@ -27,7 +27,6 @@ const ToggleHook: React.FC<ToggleHookProps> = ({
     <>
       <Link href={`/${compo}/${cid}`}>
         <Plus title={`Add new ${name}`} />
-        {/* {name} */}
       </Link>
     </>
   )
@@ -53,7 +52,9 @@ const ToggleHook: React.FC<ToggleHookProps> = ({
           {add}
         </>
       ) : (
-        <> {add}</>
+        <div className="flex items-center">
+          {add} {name}
+        </div>
       )}
     </div>
   )
