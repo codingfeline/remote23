@@ -1,8 +1,11 @@
 'use client'
 
-import { Footer, Header, UseProvider } from '@components'
+// import { Footer, Header, UseProvider } from '@components'
+import UseProvider from '@redux/provider'
+import Footer from '@components/Footer'
 import './globals.css'
 import type { Metadata } from 'next'
+import MyHeader from '@components/MyHeader'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <UseProvider>
           <div className="flex flex-col min-h-screen">
-            <Header />
+            <MyHeader />
             <main className="mb-auto">{children}</main>
             <Footer />
           </div>
