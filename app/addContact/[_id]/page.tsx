@@ -7,6 +7,8 @@ const AddContact = ({ params }: { params: CustomerType }) => {
     name: '',
     tel: '',
     email: '',
+    api: 'insertOneContact',
+    cid: params._id || '',
   })
 
   return (
@@ -38,7 +40,6 @@ const AddContact = ({ params }: { params: CustomerType }) => {
         <button type="submit">Submit</button>
       </form>
       <UseBack />
-      {JSON.stringify(formData)}
     </>
   )
 }
