@@ -8,6 +8,8 @@ const AddContact = ({ params }: { params: CustomerType }) => {
     ip: '',
     username: '',
     password: '',
+    api: 'insertServer',
+    cid: params._id || '',
   })
 
   return (
