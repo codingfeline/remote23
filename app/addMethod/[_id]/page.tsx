@@ -9,7 +9,7 @@ const AddContact = ({ params }: { params: CustomerType }) => {
     username: '',
     password: '',
     notes: '',
-    api: 'insertOneMethod',
+    api: 'insertMethod',
     cid: params._id || '',
   })
 
