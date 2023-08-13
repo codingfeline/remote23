@@ -1,18 +1,20 @@
 'use client'
 //prettier-ignore
 import {  useAppSelector, useAppDispatch, useEffect, useState, Contact, Show, Hide, Link, CustomerType, Method, Server, Device, Setup, fetchCustomers } from '@components'
+import CustomerName from '@components/CustomerName'
 
 const cust = ({ params }: { params: CustomerType }) => {
+  const [show, setShow] = useState(false)
   const dispatch = useAppDispatch()
   const customers = useAppSelector(state => state.customer.customers)
   const cust = customers.filter((cust: CustomerType) => cust._id === params._id)[0]
   const copy = useAppSelector(state => state.copy.value)
-  const [show, setShow] = useState(false)
-  // const custRef = { name: cust.name, _id: cust._id }
-  localStorage.setItem('_id', JSON.stringify(params._id))
+  // localStorage.setItem('_id', JSON.stringify(params._id))
+  const cid = params._id || ''
 
   useEffect(() => {
     dispatch(fetchCustomers())
+    // localStorage.setItem('_id', JSON.stringify(params._id))
   }, [])
 
   if (!customers.length) {
@@ -21,6 +23,7 @@ const cust = ({ params }: { params: CustomerType }) => {
 
   return (
     <>
+      {' '}
       <span className={`transition-opacity ${copy ? 'opacity-1' : ' opacity-0'}`}>
         {copy && (
           <>
@@ -29,14 +32,17 @@ const cust = ({ params }: { params: CustomerType }) => {
         )}
       </span>
       <div className="links">
-        <Link href="/">Home</Link>
         {customers.map(cust => (
           <Link key={cust._id} href={`./${cust._id}`}>
             {cust.name}
           </Link>
         ))}
       </div>
-      {cust._id}, {cust.name}
+      {/* {cust._id}, {cust.name} */}
+      Customer:
+      <span className="ml-2">
+        <CustomerName id={params._id || ''} />
+      </span>
       <hr />
       {show ? (
         <Hide onClick={() => setShow(prev => !prev)} />
@@ -45,16 +51,11 @@ const cust = ({ params }: { params: CustomerType }) => {
       )}
       {show && <pre>{JSON.stringify(cust, null, 2)}</pre>}
       <hr />
-      <Method method={cust.methodInfo} />
-      <Contact contact={cust.contact} />
-      <Server server={cust.server} />
-      <Device device={cust.devicePassword} />
-      <Setup setup={cust.serverSetup} />
-      {/* {cust.methodInfo.length ? <Method method={cust.methodInfo} /> : ''}
-      {cust.contact.length ? <Contact contact={cust.contact} /> : ''}
-      {cust.server.length ? <Server server={cust.server} /> : ''}
-      {cust.devicePassword.length ? <Device device={cust.devicePassword} /> : ''}
-      {cust.serverSetup.length ? <Setup setup={cust.serverSetup} /> : ''} */}
+      <Method method={cust.methodInfo} cid={cid} />
+      <Contact contact={cust.contact} cid={cid} />
+      <Server server={cust.server} cid={cid} />
+      <Device device={cust.devicePassword} cid={cid} />
+      <Setup setup={cust.serverSetup} cid={cid} />
     </>
   )
 }
