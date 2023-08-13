@@ -4,9 +4,11 @@ import { CustomerType, UseBack, TextInput, UseForm } from '@components'
 
 const AddContact = ({ params }: { params: CustomerType }) => {
   const { formData, handleInputChange, handleSubmit } = UseForm({
-    name: '',
+    make: '',
     username: '',
     password: '',
+    api: 'insertDevice',
+    cid: params._id || '',
   })
 
   return (
@@ -14,10 +16,10 @@ const AddContact = ({ params }: { params: CustomerType }) => {
       <h5>Add Device</h5>
       <form onSubmit={handleSubmit}>
         <fieldset>
-          <legend>IT Contact</legend>
+          <legend>Device info</legend>
           <TextInput
-            name="name"
-            value={formData.name}
+            name="make"
+            value={formData.make}
             required
             onChange={handleInputChange}
           />
@@ -38,7 +40,6 @@ const AddContact = ({ params }: { params: CustomerType }) => {
         <button type="submit">Submit</button>
       </form>
       <UseBack />
-      {JSON.stringify(formData)}
     </>
   )
 }
