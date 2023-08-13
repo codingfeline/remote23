@@ -28,7 +28,7 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
 
   const handleSubmitForm = (e: FormEvent) => {
     e.preventDefault()
-    const url = `http://localhost:3121/api/customers/${cid}/updateOneContact`
+    const url = `http://localhost:3121/api/customers/${cid}/updateContact`
     axios
       .put(url, formData)
       .then(res => {
@@ -47,7 +47,7 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   const fetchDataFromApi = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3121/api/customers/${cid}/${mid}/findOneContact`
+        `http://localhost:3121/api/customers/${cid}/${mid}/findContact`
       )
       if (response.ok) {
         const data = await response.json()

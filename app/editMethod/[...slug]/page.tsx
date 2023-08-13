@@ -47,7 +47,7 @@ const EditMethod = ({ params }: { params: { slug: string } }) => {
   const fetchDataFromApi = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3121/api/customers/${cid}/${mid}/findOneMethod`
+        `http://localhost:3121/api/customers/${cid}/${mid}/findMethod`
       )
       if (response.ok) {
         const data = await response.json()
