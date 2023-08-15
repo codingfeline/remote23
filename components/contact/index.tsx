@@ -1,9 +1,10 @@
-import { useState, ContactType } from '@components'
+import { useState, ContactType, Edit } from '@components'
 import ToggleHook from '@components/useToggle'
+import { useRouter } from 'next/navigation'
 
-const page = ({ contact }: { contact: ContactType[] }) => {
-  const [showContact, setshowContact] = useState(contact.length ? true : false)
-
+const page = ({ contact, cid }: { contact: ContactType[]; cid: string }) => {
+  const router = useRouter()
+  const [showContact, setshowContact] = useState(true)
   const handleShowChange = (show: boolean) => {
     setshowContact(show)
   }
@@ -15,26 +16,33 @@ const page = ({ contact }: { contact: ContactType[] }) => {
         name="Contact"
         length={contact.length}
         compo="addContact"
+        cid={cid}
       />
       <div className={`transIn ${!showContact && 'transOut'}`}>
-        {contact.map(cont => (
-          <div key={cont._id} className="sub">
-            <div className="bg-blue-100">
-              <div className="item">
-                <label htmlFor="name">name</label>
-                <input type="text" value={cont.name} readOnly />
-              </div>
-              <div className="item">
-                <label htmlFor="email">email</label>
-                <input type="text" value={cont.email} readOnly />
-              </div>
-              <div className="item">
-                <label htmlFor="tel">tel</label>
-                <input type="text" value={cont.tel} readOnly />
+        {contact.map(cont => {
+          const id = cont._id
+          return (
+            <div key={cont._id} className="sub">
+              <div className="bg-blue-100">
+                <div className="flex justify-between">
+                  <Edit onClick={() => router.push(`/editContact/${cid}/${id}`)} />
+                </div>
+                <div className="item">
+                  <label htmlFor="name">name</label>
+                  <input type="text" value={cont.name} readOnly />
+                </div>
+                <div className="item">
+                  <label htmlFor="email">email</label>
+                  <input type="text" value={cont.email} readOnly />
+                </div>
+                <div className="item">
+                  <label htmlFor="tel">tel</label>
+                  <input type="text" value={cont.tel} readOnly />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
