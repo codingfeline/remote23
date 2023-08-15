@@ -22,11 +22,7 @@ const CustomerName = ({ id }: { id: string }) => {
     fetchData()
   }, [])
 
-  return (
-    <>
-      <div>Editing Method for {data.name}</div>
-    </>
-  )
+  return data.name
 }
 
 export default CustomerName
