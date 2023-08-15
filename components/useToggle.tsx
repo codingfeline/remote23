@@ -3,9 +3,9 @@ import { Show, Hide, Plus, Link, useState } from '@components'
 interface ToggleHookProps {
   onShowChange: (show: boolean) => void
   name: string
-  length: number
+  length?: number
   compo: string
-  cid: string
+  cid?: string
 }
 
 const ToggleHook: React.FC<ToggleHookProps> = ({
@@ -37,7 +37,7 @@ const ToggleHook: React.FC<ToggleHookProps> = ({
         show && ' border border-b-0'
       }`}
     >
-      {length > 0 ? (
+      {length !== 0 && (
         <>
           <div className="groupMaster group" onClick={handleShowChange}>
             {show ? (
@@ -49,8 +49,10 @@ const ToggleHook: React.FC<ToggleHookProps> = ({
               {name}
             </span>
           </div>
-          {add}
         </>
+      )}
+      {name === 'Network Config' ? (
+        ''
       ) : (
         <div className="flex items-center">
           {add} {name}
