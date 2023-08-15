@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import Input from '@components/Input'
-import { vpns } from '@utils/helpers'
 import axios from 'axios'
+import { TextInput } from '@components'
+import { useRouter } from 'next/navigation'
+import { useAppDispatch, fetchCustomers } from '@components'
 
 type solutionType = {
   _id: string
@@ -11,25 +13,20 @@ type solutionType = {
 }
 
 const AddCustomer = () => {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
   const [name, setName] = useState<string>('')
-  const [solution, setSolution] = useState<string>('')
-  // const [method, setMethod] = useState<string>('')
-  // const [itName, setItName] = useState<string>('')
-  // const [email, setEmail] = useState<string>('')
-  // const [tel, setTel] = useState<string>('')
   const [solutions, setSolutions] = useState<string[]>([])
   const [show, setShow] = useState(false)
   const [newSolution, setNewSolution] = useState('')
   const [selected, setSelected] = useState('choose')
-  vpns.sort()
-
-  // const radioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setMethod(e.target.value)
-  // }
+  const [added, setAdded] = useState(false)
+  const [newId, setNewId] = useState('')
+  const [newCust, setNewCust] = useState('')
 
   useEffect(() => {
     fetchSolutions()
-  }, [show])
+  }, [])
 
   const fetchSolutions = async () => {
     try {
@@ -38,7 +35,7 @@ const AddCustomer = () => {
         const data = await response.json()
         const names = data.map((s: solutionType) => s.name)
         console.log(names)
-        setSolutions(names)
+        setSolutions(names.sort())
       } else {
         console.error('Failed to fetch data from API')
       }
@@ -86,13 +83,40 @@ const AddCustomer = () => {
     }
   }
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    axios
+      .post('http://localhost:3121/api/customers', { name: name, solution: selected })
+      .then(res => {
+        console.log(res)
+        if (res.statusText === 'Created') {
+          console.log(res)
+          setNewId(res.data._id)
+          setAdded(true)
+          dispatch(fetchCustomers())
+          setNewCust(name) //to display name upon submission
+
+          // resetting form
+          setName('')
+          setSelected('')
+        }
+      })
+  }
+
   return (
     <>
       <h3>AddCustomer</h3>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Customer</legend>
-          <Input name="name" value={name} handleChange={e => setName(e.target.value)} />
+          <legend>New Customer</legend>
+
+          <TextInput
+            name="name"
+            value={name}
+            required
+            onChange={e => setName(e.target.value)}
+          />
           <div className="item">
             <label htmlFor="solution">solution</label>
             <select
@@ -100,8 +124,9 @@ const AddCustomer = () => {
               id="solution"
               onChange={handleSelect}
               value={selected}
+              required
             >
-              <option value="choose">Choose one</option>
+              <option value="">Choose one</option>
               {solutions.map(sol => (
                 <option key={sol} value={sol}>
                   {sol}
@@ -129,9 +154,14 @@ const AddCustomer = () => {
           <button>Submit</button>
         </div>
       </form>
-      <div>
-        {name}, {solution}
-      </div>
+      {added && (
+        <div className="flex flex-col justify-center items-center w-1/3 m-auto mt-8 bg-yellow-100 p-3 rounded-md">
+          <div>{newCust} added</div>
+          <button className="" onClick={() => router.push(`/cust/${newId}`)}>
+            go to {newCust}
+          </button>
+        </div>
+      )}
     </>
   )
 }
