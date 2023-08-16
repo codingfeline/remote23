@@ -50,15 +50,24 @@ const SelectCustomer = () => {
       const curr = JSON.parse(store)
 
       const exists = curr.find((item: Option) => item.value === newCust.value)
-      if (!exists) curr.push(newCust)
 
-      localStorage.setItem('recent', JSON.stringify(curr))
+      if (exists) {
+        //remove the item from current list
+        const newArr = curr.filter((item: Option) => item.value !== newCust.value)
+        // add the item to the top of the list
+        newArr.unshift(newCust)
+        localStorage.setItem('recent', JSON.stringify(newArr))
+      } else {
+        curr.unshift(newCust)
+        localStorage.setItem('recent', JSON.stringify(curr))
+      }
     } else {
       const arr = []
       const newCust: Option = { label: selected.label, value: selected.value }
       arr.push(newCust)
       localStorage.setItem('recent', JSON.stringify(arr))
     }
+
     setSelectedOption(selected)
     if (selected) {
       router.push(`/cust/${selected.value}`)
@@ -68,7 +77,7 @@ const SelectCustomer = () => {
   return (
     <>
       <Select<Option>
-        className="w-1/2 m-auto my-1"
+        className="w-1/3 m-auto my-1"
         value={selectedOption}
         options={options}
         onChange={handleChange}
