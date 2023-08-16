@@ -3,8 +3,8 @@
 import {  useAppSelector, useAppDispatch, useEffect, useState, Contact, Show, Hide, Link, CustomerType, Method, Server, Device, Setup, fetchCustomers } from '@components'
 import CustomerName from '@components/CustomerName'
 import NetworkConfig from '@components/network'
-import { useRouter } from 'next/navigation'
-import Select, { OptionTypeBase } from 'react-select'
+import RecentViews from '@components/recentViews'
+import SelectCustomer from '@components/selectCustomer'
 
 const cust = ({ params }: { params: CustomerType }) => {
   const [show, setShow] = useState(false)
@@ -12,27 +12,6 @@ const cust = ({ params }: { params: CustomerType }) => {
   const customers = useAppSelector(state => state.customer.customers)
   const cust = customers.filter((cust: CustomerType) => cust._id === params._id)[0]
   const cid = params._id || ''
-  const router = useRouter()
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null)
-  const options: Option[] = customers
-    .map(c => {
-      return {
-        label: c.name + ' (' + c.solution + ')',
-        value: c._id,
-      }
-    })
-    .sort((a, b) => {
-      let fa = a.label.toLowerCase(),
-        fb = b.label.toLowerCase()
-
-      if (fa < fb) {
-        return -1
-      }
-      if (fa > fb) {
-        return 1
-      }
-      return 0
-    })
 
   useEffect(() => {
     dispatch(fetchCustomers())
@@ -42,26 +21,13 @@ const cust = ({ params }: { params: CustomerType }) => {
     return 'Loading...'
   }
 
-  interface Option {
-    value: string
-    label: string
-  }
-
-  const handleChange = (selected: OptionTypeBase<Option> | null) => {
-    setSelectedOption(selected)
-    if (selected) {
-      router.push(`./${selected.value}`)
-    }
-  }
-
   return (
     <>
-      <Select<Option>
-        className="w-1/2 m-auto my-1"
-        value={selectedOption}
-        options={options}
-        onChange={handleChange}
-      />
+      <div className="sticky top-0 z-50 flex overflow-y-visible h-3 justify-end">
+        <RecentViews />
+      </div>
+
+      <SelectCustomer />
       <div className="flex justify-center">
         <span className="bg-blue-200 p-3 rounded-l-md border border-blue-300 border-r-0">
           <CustomerName id={params._id || ''} />
