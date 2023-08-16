@@ -9,6 +9,7 @@ const SelectCustomer = () => {
   const customers = useAppSelector(state => state.customer.customers)
   const router = useRouter()
   const [selectedOption, setSelectedOption] = useState<Option | null>(null)
+
   const options: Option[] = customers
     .map(c => {
       return {
@@ -31,7 +32,7 @@ const SelectCustomer = () => {
 
   useEffect(() => {
     dispatch(fetchCustomers())
-  }, [])
+  }, [selectedOption])
 
   if (!customers.length) {
     return 'Loading...'
@@ -43,6 +44,21 @@ const SelectCustomer = () => {
   }
 
   const handleChange = (selected: OptionTypeBase<Option> | null) => {
+    const store = localStorage.getItem('recent')
+    if (store) {
+      const newCust: Option = { label: selected.label, value: selected.value }
+      const curr = JSON.parse(store)
+
+      const exists = curr.find((item: Option) => item.value === newCust.value)
+      if (!exists) curr.push(newCust)
+
+      localStorage.setItem('recent', JSON.stringify(curr))
+    } else {
+      const arr = []
+      const newCust: Option = { label: selected.label, value: selected.value }
+      arr.push(newCust)
+      localStorage.setItem('recent', JSON.stringify(arr))
+    }
     setSelectedOption(selected)
     if (selected) {
       router.push(`/cust/${selected.value}`)
