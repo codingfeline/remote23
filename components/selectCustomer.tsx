@@ -45,7 +45,7 @@ const SelectCustomer = () => {
   const handleChange = (selected: OptionTypeBase<Option> | null) => {
     setSelectedOption(selected)
     if (selected) {
-      router.push(`./${selected.value}`)
+      router.push(`/cust/${selected.value}`)
     }
   }
 
