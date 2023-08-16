@@ -39,15 +39,17 @@ const RecentViews = () => {
   }
 
   return (
-    <div className="flex flex-col w-[220px] bg-lime-50 rounded-md p-3 ">
-      <h5>Recent Views</h5>
-      <div className="links  items-start">
+    <div className="flex flex-col w-[220px] rounded-md">
+      <div className="links  items-start bg-indigo-300 p-2 rounded-md border border-indigo-600 text-indigo-800">
+        <h6>Recent Views</h6>
         {recent.map(c => {
           return (
-            <div className="flex flex-row w-full justify-between items-center">
-              <button onClick={() => goRecent(c)}>{c.label}</button>
-              <MdClose onClick={() => removeRecent(c.value)} />
-            </div>
+            <>
+              <div className="recent flex flex-row w-full justify-between items-center">
+                <button onClick={() => goRecent(c)}>{c.label}</button>
+                <MdClose onClick={() => removeRecent(c.value)} />
+              </div>
+            </>
           )
         })}
       </div>
