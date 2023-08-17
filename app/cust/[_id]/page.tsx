@@ -13,11 +13,24 @@ const cust = ({ params }: { params: CustomerType }) => {
   const customers = useAppSelector(state => state.customer.customers)
   const cust = customers.filter((cust: CustomerType) => cust._id === params._id)[0]
   const cid = params._id || ''
-  const [showBox, setShowBox] = useState(false)
+  const [showBox, setShowBox] = useState(true)
 
   useEffect(() => {
     dispatch(fetchCustomers())
+    const tog = localStorage.getItem('toggle')
+    tog === '2' ? setShowBox(true) : setShowBox(false)
   }, [])
+
+  const toggleRecent = () => {
+    const recent = localStorage.getItem('toggle')
+    if (recent === '1') {
+      setShowBox(true)
+      localStorage.setItem('toggle', '2')
+    } else {
+      localStorage.setItem('toggle', '1')
+      setShowBox(false)
+    }
+  }
 
   if (!customers.length) {
     return 'Loading...'
@@ -27,12 +40,12 @@ const cust = ({ params }: { params: CustomerType }) => {
     <>
       {showBox ? (
         <div className="sticky top-0 z-50 flex overflow-y-visible h-3 justify-end">
-          <BiShow className="absolute right-2 top-2" onClick={() => setShowBox(false)} />
+          <BiShow className="absolute right-2 top-2" onClick={() => toggleRecent()} />
           <RecentViews />
         </div>
       ) : (
         <div className="sticky top-0 z-50 flex overflow-y-visible h-3 justify-end">
-          <BiHide className="absolute right-2 top-2" onClick={() => setShowBox(true)} />
+          <BiHide className="absolute right-2 top-2" onClick={() => toggleRecent()} />
           <span className="bg-indigo-300 border border-indigo-600 p-2 h-10 flex w-[155px] rounded-md text-indigo-800">
             <h6>Recent Views</h6>
           </span>
@@ -40,21 +53,22 @@ const cust = ({ params }: { params: CustomerType }) => {
       )}
 
       <SelectCustomer />
-      <div className="flex justify-center">
-        <span className="bg-blue-200 p-3 rounded-l-md border border-blue-300 border-r-0">
+      <div className="flex justify-center sticky top-0 mb-1">
+        <span className="bg-blue-200 p-3 rounded-l-md border border-blue-300 border-r-0 select-none">
           <CustomerName id={params._id || ''} />
         </span>
         <span className="bg-blue-100 p-3 rounded-r-md border border-blue-300 border-l-0">
           {cust.solution}
         </span>
       </div>
-      {show ? (
+
+      {/* {show ? (
         <Hide onClick={() => setShow(prev => !prev)} />
       ) : (
         <Show onClick={() => setShow(prev => !prev)} />
       )}
-      {show && <pre>{JSON.stringify(cust, null, 2)}</pre>}
-      <hr />
+      {show && <pre>{JSON.stringify(cust, null, 2)}</pre>} */}
+
       <NetworkConfig />
       <Method method={cust.methodInfo} cid={cid} />
       <Contact contact={cust.contact} cid={cid} />
