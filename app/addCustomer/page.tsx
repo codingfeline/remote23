@@ -24,26 +24,32 @@ const AddCustomer = () => {
   const [added, setAdded] = useState(false)
   const [newId, setNewId] = useState('')
   const [newCust, setNewCust] = useState('')
-  const url: string = process.env.API_CUSTOMERS
 
   useEffect(() => {
     fetchSolutions()
   }, [])
 
   const fetchSolutions = async () => {
-    try {
-      const response = await fetch('https://remoteapi.in-kent.uk/api/solutions')
-      if (response.ok) {
-        const data = await response.json()
-        const names = data.map((s: solutionType) => s.name)
-        console.log(names)
+    await axios
+      .get('solutions')
+      .then(res => {
+        const names = res.data.map((s: solutionType) => s.name)
         setSolutions(names.sort())
-      } else {
-        console.error('Failed to fetch data from API')
-      }
-    } catch (error) {
-      console.error('Error fetching data from API:', error)
-    }
+      })
+      .catch(err => console.log(err))
+    // try {
+    //   const response = await fetch('https://remoteapi.in-kent.uk/api/solutions')
+    //   if (response.ok) {
+    //     const data = await response.json()
+    //     const names = data.map((s: solutionType) => s.name)
+    //     console.log(names)
+    //     setSolutions(names.sort())
+    //   } else {
+    //     console.error('Failed to fetch data from API')
+    //   }
+    // } catch (error) {
+    //   console.error('Error fetching data from API:', error)
+    // }
   }
 
   if (!solutions.length) {
@@ -86,23 +92,20 @@ const AddCustomer = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-
-    axios
-      .post(process.env.API_CUSTOMERS || '', { name: name, solution: selected })
-      .then(res => {
+    axios.post('customers', { name: name, solution: selected }).then(res => {
+      console.log(res)
+      if (res.statusText === 'Created') {
         console.log(res)
-        if (res.statusText === 'Created') {
-          console.log(res)
-          setNewId(res.data._id)
-          setAdded(true)
-          dispatch(fetchCustomers())
-          setNewCust(name) //to display name upon submission
+        setNewId(res.data._id)
+        setAdded(true)
+        dispatch(fetchCustomers())
+        setNewCust(name) //to display name upon submission
 
-          // resetting form
-          setName('')
-          setSelected('')
-        }
-      })
+        // resetting form
+        setName('')
+        setSelected('')
+      }
+    })
   }
 
   return (
