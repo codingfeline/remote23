@@ -15,7 +15,7 @@ const MyHeader = () => {
 
   const links = [
     { to: '/', page: 'Home' },
-    { to: '/otherForms', page: 'Other Forms' },
+    { to: '/addCustomer', page: 'Add' },
   ]
   // { to: '/editMethod', page: 'Edit' },
   // { to: '/projects', page: 'Projects' },
