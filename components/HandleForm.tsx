@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
-import axios from 'axios'
+import axios from '@components/axios'
 import { useRouter } from 'next/navigation'
 
 interface FormData {
@@ -23,7 +23,7 @@ const UseForm = (initialFormData: FormData) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     console.log(formData)
-    const url = `http://localhost:3121/api/customers/${formData.cid}/${formData.api}`
+    const url = `customers/${formData.cid}/${formData.api}`
     axios
       .put(url, formData)
       .then(res => {
