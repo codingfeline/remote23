@@ -6,7 +6,7 @@ import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
 import { ContactType } from '@utils/types/customer'
 import CustomerName from '@components/CustomerName'
-import axios from 'axios'
+import axios from '@components/axios'
 
 const EditContact = ({ params }: { params: { slug: string } }) => {
   const cid = params.slug[0]
@@ -28,7 +28,7 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
 
   const handleSubmitForm = (e: FormEvent) => {
     e.preventDefault()
-    const url = `http://localhost:3121/api/customers/${cid}/updateContact`
+    const url = `customers/${cid}/updateContact`
     axios
       .put(url, formData)
       .then(res => {
@@ -45,24 +45,37 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   }, [])
 
   const fetchDataFromApi = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3121/api/customers/${cid}/${mid}/findContact`
-      )
-      if (response.ok) {
-        const data = await response.json()
+    const url = `customers/${cid}/${mid}/findContact`
+    await axios
+      .get(url)
+      .then(res => {
         setFormData({
-          name: data.name,
-          tel: data.tel,
-          email: data.email,
-          _id: data._id,
+          name: res.data.name,
+          tel: res.data.tel,
+          email: res.data.email,
+          _id: res.data._id,
         })
-      } else {
-        console.error('Failed to fetch data from API')
-      }
-    } catch (error) {
-      console.error('Error fetching data from API:', error)
-    }
+      })
+      .catch(err => console.log(err))
+
+    // try {
+    //   const response = await fetch(
+    //     `https://remoteapi.in-kent.uk/api/customers/${cid}/${mid}/findContact`
+    //   )
+    //   if (response.ok) {
+    //     const data = await response.json()
+    //     setFormData({
+    //       name: data.name,
+    //       tel: data.tel,
+    //       email: data.email,
+    //       _id: data._id,
+    //     })
+    //   } else {
+    //     console.error('Failed to fetch data from API')
+    //   }
+    // } catch (error) {
+    //   console.error('Error fetching data from API:', error)
+    // }
   }
 
   if (!customers.length) {
