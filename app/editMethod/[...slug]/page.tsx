@@ -6,7 +6,7 @@ import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
 import { MethodType } from '@utils/types/customer'
 import CustomerName from '@components/CustomerName'
-import axios from 'axios'
+import axios from '@components/axios'
 
 const EditMethod = ({ params }: { params: { slug: string } }) => {
   const cid = params.slug[0]
@@ -28,7 +28,7 @@ const EditMethod = ({ params }: { params: { slug: string } }) => {
 
   const handleSubmitForm = (e: FormEvent) => {
     e.preventDefault()
-    const url = `http://localhost:3121/api/customers/${cid}/updateMethodInfo`
+    const url = `customers/${cid}/updateMethodInfo`
     axios
       .put(url, formData)
       .then(res => {
@@ -45,26 +45,19 @@ const EditMethod = ({ params }: { params: { slug: string } }) => {
   }, [])
 
   const fetchDataFromApi = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3121/api/customers/${cid}/${mid}/findMethod`
-      )
-      if (response.ok) {
-        const data = await response.json()
+    await axios
+      .get(`customers/${cid}/${mid}/findMethod`)
+      .then(res => {
         setFormData({
-          methodName: data.methodName,
-          url: data.url,
-          username: data.username,
-          password: data.password,
-          notes: data.notes,
-          _id: data._id,
+          methodName: res.data.methodName,
+          url: res.data.url,
+          username: res.data.username,
+          password: res.data.password,
+          notes: res.data.notes,
+          _id: res.data._id,
         })
-      } else {
-        console.error('Failed to fetch data from API')
-      }
-    } catch (error) {
-      console.error('Error fetching data from API:', error)
-    }
+      })
+      .catch(err => console.log(err))
   }
 
   if (!customers.length) {
