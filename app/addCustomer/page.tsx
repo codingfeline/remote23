@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Input from '@components/Input'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '@components/axios'
 import { TextInput } from '@components'
 import { useRouter } from 'next/navigation'
 import { useAppDispatch, fetchCustomers } from '@components'
@@ -23,6 +24,7 @@ const AddCustomer = () => {
   const [added, setAdded] = useState(false)
   const [newId, setNewId] = useState('')
   const [newCust, setNewCust] = useState('')
+  const url: string = process.env.API_CUSTOMERS
 
   useEffect(() => {
     fetchSolutions()
@@ -30,7 +32,7 @@ const AddCustomer = () => {
 
   const fetchSolutions = async () => {
     try {
-      const response = await fetch(`http://localhost:3121/api/solutions`)
+      const response = await fetch('https://remoteapi.in-kent.uk/api/solutions')
       if (response.ok) {
         const data = await response.json()
         const names = data.map((s: solutionType) => s.name)
@@ -70,8 +72,7 @@ const AddCustomer = () => {
     if (lower.includes(newSolution.toLowerCase())) {
       console.log('name exists')
     } else {
-      const url = `http://localhost:3121/api/solutions`
-      axios.post(url, { name: newSolution }).then(res => {
+      axios.post('solutions', { name: newSolution }).then(res => {
         console.log(res)
         if (res.statusText === 'Created') {
           console.log('ok')
@@ -87,7 +88,7 @@ const AddCustomer = () => {
     e.preventDefault()
 
     axios
-      .post('http://localhost:3121/api/customers', { name: name, solution: selected })
+      .post(process.env.API_CUSTOMERS || '', { name: name, solution: selected })
       .then(res => {
         console.log(res)
         if (res.statusText === 'Created') {
