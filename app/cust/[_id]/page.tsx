@@ -4,7 +4,8 @@ import {  useAppSelector, useAppDispatch, useEffect, useState, Contact, Show, Hi
 import CustomerName from '@components/CustomerName'
 import NetworkConfig from '@components/network'
 import RecentViews from '@components/recentViews'
-import SelectCustomer from '@components/selectCustomer'
+// import SelectCustomer from '@components/selectCustomer'
+import SelectCustomer2 from '@components/selectCustomer2'
 import { BiHide, BiShow } from 'react-icons/bi'
 
 const cust = ({ params }: { params: CustomerType }) => {
@@ -52,7 +53,7 @@ const cust = ({ params }: { params: CustomerType }) => {
         </div>
       )}
 
-      <SelectCustomer />
+      <SelectCustomer2 />
       <div className="flex justify-center sticky top-0 mb-1">
         <span className="bg-blue-200 p-3 rounded-l-md border border-blue-300 border-r-0 select-none">
           <CustomerName id={params._id || ''} />
