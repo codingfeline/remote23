@@ -6,7 +6,7 @@ import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
 import { ServerType } from '@utils/types/customer'
 import CustomerName from '@components/CustomerName'
-import axios from 'axios'
+import axios from '@components/axios'
 
 const EditServer = ({ params }: { params: { slug: string } }) => {
   const cid = params.slug[0]
@@ -28,7 +28,7 @@ const EditServer = ({ params }: { params: { slug: string } }) => {
 
   const handleSubmitForm = (e: FormEvent) => {
     e.preventDefault()
-    const url = `http://localhost:3121/api/customers/${cid}/updateServer`
+    const url = `customers/${cid}/updateServer`
     axios
       .put(url, formData)
       .then(res => {
@@ -45,25 +45,19 @@ const EditServer = ({ params }: { params: { slug: string } }) => {
   }, [])
 
   const fetchDataFromApi = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3121/api/customers/${cid}/${mid}/findServer`
-      )
-      if (response.ok) {
-        const data = await response.json()
+    const url = `customers/${cid}/${mid}/findServer`
+    await axios
+      .get(url)
+      .then(res => {
         setFormData({
-          name: data.name,
-          ip: data.ip,
-          username: data.username,
-          password: data.password,
-          _id: data._id,
+          name: res.data.name,
+          ip: res.data.ip,
+          username: res.data.username,
+          password: res.data.password,
+          _id: res.data._id,
         })
-      } else {
-        console.error('Failed to fetch data from API')
-      }
-    } catch (error) {
-      console.error('Error fetching data from API:', error)
-    }
+      })
+      .catch(err => console.log(err))
   }
 
   if (!customers.length) {
