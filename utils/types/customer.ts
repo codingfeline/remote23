@@ -6,6 +6,9 @@ export type CustomerType = {
   server: ServerType[]
   serverSetup: ServerSetupType[]
   devicePassword: DevicePasswordType[]
+  scanFolder: ScanFolderType[]
+  scanEmail: ScanEmailType[]
+  networ: NetworkType[]
 } & idName
 
 export type ContactType = {
@@ -32,6 +35,22 @@ export type ServerSetupType = {
 export type DevicePasswordType = {
   make: string
 } & id & UserPassType
+
+export type ScanFolderType = {
+  hostname: string
+  folder: string
+} & id & UserPassType
+
+export type ScanEmailType = {
+  hostname: string
+  port: string
+} & id & UserPassType
+
+export type NetworkType = {
+  name: string
+  domain: string
+  dns: [string]
+}
 
 export type MethodType = {
   methodName: string
