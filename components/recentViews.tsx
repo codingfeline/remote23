@@ -28,7 +28,7 @@ const RecentViews = () => {
   }
 
   const goRecent = (r_item: Option) => {
-    const store = localStorage.getItem('recent')
+    const store = localStorage.getItem('recent') || ''
     const curr = JSON.parse(store)
     //remove the item from current list
     const newArr = curr.filter((item: Option) => item.value !== r_item.value)
@@ -37,6 +37,8 @@ const RecentViews = () => {
     localStorage.setItem('recent', JSON.stringify(newArr))
     router.push(`/cust/${r_item.value}`)
   }
+
+  if (!recent.length) return ''
 
   return (
     <div className="flex flex-col w-[220px] rounded-md">
