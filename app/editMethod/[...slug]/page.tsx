@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
 //prettier-ignore
-import { TextInput, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType } from '@components'
+import { TextInput, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType, EditFormLabel, SubmitButton, BackButton, FormBox } from '@components'
 import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
 import { MethodType } from '@utils/types/customer'
@@ -65,44 +65,47 @@ const EditMethod = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <>
-      <CustomerName id={cid} />
-      <form onSubmit={handleSubmitForm}>
-        <TextInput
-          name="methodName"
-          value={formData.methodName}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="url"
-          value={formData.url}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-        />
-        <TextArea
-          name="notes"
-          value={formData.notes}
-          required
-          onChange={handleInputChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
-      {/* ))} */}
-      <button onClick={() => router.back()}>back</button>
-    </>
+    <EditFormLabel cid={cid} label="Remote Method">
+      <div className="editForm">
+        <form
+          onSubmit={handleSubmitForm}
+          className="bg-yellow-100 border border-yellow-300"
+        >
+          <TextInput
+            name="method"
+            value={formData.methodName}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="url"
+            value={formData.url}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
+          <TextArea
+            name="notes"
+            value={formData.notes}
+            required
+            onChange={handleInputChange}
+          />
+          <SubmitButton />
+        </form>
+        <BackButton cid={cid} />
+      </div>
+    </EditFormLabel>
   )
 }
 

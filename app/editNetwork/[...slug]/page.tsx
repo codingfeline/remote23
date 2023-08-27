@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
 //prettier-ignore
-import { TextInput, NetworkType, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType, SubmitButton, EditFormLabel } from '@components'
+import { TextInput, NetworkType, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType, SubmitButton, EditFormLabel, BackButton } from '@components'
 import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
 import CustomerName from '@components/CustomerName'
@@ -28,7 +28,7 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
 
   const handleSubmitForm = (e: FormEvent) => {
     e.preventDefault()
-    const url = `customers/${cid}/updateScanFolder`
+    const url = `customers/${cid}/updateNetwork`
     axios
       .put(url, formData)
       .then(res => {
@@ -78,55 +78,37 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <div className="editForm">
-      <EditFormLabel cust={cust.name} label="Network" />
-      <form onSubmit={handleSubmitForm}>
-        <TextInput
-          name="name"
-          value={formData.name}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="domain"
-          value={formData.domain}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="dns1"
-          value={formData.dns1}
-          onChange={handleInputChange}
-          required
-        />
-        {formData.dns2 && (
+    <EditFormLabel label="Network" cid={cid}>
+      <div className="editForm network">
+        <form onSubmit={handleSubmitForm} className="bg-green-100">
+          <TextInput
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="domain"
+            value={formData.domain}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput name="dns1" value={formData.dns1} onChange={handleInputChange} />
           <TextInput
             name="dns2"
-            value={formData.dns2}
+            value={formData.dns2 || ''}
             onChange={handleInputChange}
-            required
           />
-        )}
-        {formData.dns3 && (
           <TextInput
             name="dns3"
-            value={formData.dns3}
+            value={formData.dns3 || ''}
             onChange={handleInputChange}
-            required
           />
-        )}
-
-        {/* <div className="item">
-          <label htmlFor="dns">dns</label>
-          <div className="flex flex-col">
-            <DnsSplit />
-          </div>
-        </div> */}
-        <SubmitButton />
-      </form>
-      {/* ))} */}
-      <button onClick={() => router.back()}>back</button>
-    </div>
+          <SubmitButton />
+        </form>
+        <BackButton cid={cid} />
+      </div>
+    </EditFormLabel>
   )
 }
 

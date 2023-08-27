@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
 //prettier-ignore
-import { TextInput, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType } from '@components'
+import { TextInput, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType, EditFormLabel, BackButton, SubmitButton } from '@components'
 import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
 import { DevicePasswordType } from '@utils/types/customer'
@@ -64,32 +64,35 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <>
-      <CustomerName id={cid} />
-      <form onSubmit={handleSubmitForm}>
-        <TextInput
-          name="make"
-          value={formData.make}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
-      {/* ))} */}
-      <button onClick={() => router.back()}>back</button>
-    </>
+    <EditFormLabel cid={cid} label="Device">
+      <div className="editForm">
+        <form
+          onSubmit={handleSubmitForm}
+          className="bg-orange-100 border border-orange-200"
+        >
+          <TextInput
+            name="make"
+            value={formData.make}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
+          <SubmitButton />
+        </form>
+        <BackButton cid={cid} />
+      </div>
+    </EditFormLabel>
   )
 }
 
