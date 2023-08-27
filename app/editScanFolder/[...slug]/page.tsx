@@ -1,10 +1,9 @@
 'use client'
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
 //prettier-ignore
-import { TextInput, ScanFolderType, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType, SubmitButton, EditFormLabel } from '@components'
+import { TextInput, ScanFolderType, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType, SubmitButton, EditFormLabel, BackButton } from '@components'
 import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
-import CustomerName from '@components/CustomerName'
 import axios from '@components/axios'
 
 const EditContact = ({ params }: { params: { slug: string } }) => {
@@ -13,7 +12,6 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const customers = useAppSelector(state => state.customer.customers)
-  const cust = customers.filter(c => c._id === params.slug[0])[0]
   const [formData, setFormData] = useState<ScanFolderType>({} as ScanFolderType)
 
   const handleInputChange = (
@@ -65,38 +63,41 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <div className="editForm">
-      <EditFormLabel cust={cust.name} label="Scan-to-folder" />
-      <form onSubmit={handleSubmitForm}>
-        <TextInput
-          name="hostname"
-          value={formData.hostname}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="folder"
-          value={formData.folder}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-        />
-        <SubmitButton />
-      </form>
-      {/* ))} */}
-      <button onClick={() => router.back()}>back</button>
-    </div>
+    <EditFormLabel cid={cid} label="Scan-to-folder">
+      <div className="editForm">
+        <form
+          onSubmit={handleSubmitForm}
+          className="bg-indigo-200 border border-indigo-300"
+        >
+          <TextInput
+            name="hostname"
+            value={formData.hostname}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="folder"
+            value={formData.folder}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
+          <SubmitButton />
+        </form>
+        <BackButton cid={cid} />
+      </div>
+    </EditFormLabel>
   )
 }
 
