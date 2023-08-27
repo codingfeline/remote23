@@ -9,6 +9,8 @@ export { default as MyHeader } from '@components/MyHeader'
 export { default as Footer } from '@components/Footer'
 export { default as SubmitButton } from './submitButton'
 export { default as EditFormLabel } from './EditFormLabel'
+export { default as BackButton } from './BackButton'
+export { default as FormBox } from './FormBox'
 
 export { default as Contact } from '@components/contact'
 export { default as Server } from '@components/server'
@@ -53,6 +55,7 @@ export { FaBars } from 'react-icons/fa'
 export { MdContentCopy as Copy } from 'react-icons/md'
 export { MdOutlineEdit as Edit } from 'react-icons/md'
 export { MdDone as Check } from 'react-icons/md'
+export { MdKeyboardBackspace as Back } from 'react-icons/md'
 
 // export { default as Modal } from './Modal'
 
