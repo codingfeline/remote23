@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
 //prettier-ignore
-import { TextInput, ScanEmailType, EditFormLabel, useAppDispatch, useAppSelector, CustomerType } from '@components'
+import { TextInput, ScanEmailType, EditFormLabel, useAppDispatch, useAppSelector, CustomerType, BackButton, SubmitButton } from '@components'
 import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
 // import { ScanEmailType } from '@utils/types/customer'
@@ -14,7 +14,6 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const customers = useAppSelector(state => state.customer.customers)
-  const cust = customers.filter(c => c._id === params.slug[0])[0]
   const [formData, setFormData] = useState<ScanEmailType>({} as ScanEmailType)
 
   const handleInputChange = (
@@ -75,41 +74,38 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <div className="editForm">
-      <EditFormLabel cust={cust.name} label="Scan-to-email" />
-      <form onSubmit={handleSubmitForm}>
-        <TextInput
-          name="hostname"
-          value={formData.hostname}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          name="port"
-          value={formData.port}
-          onChange={handleInputChange}
-          required
-        />
-        <div className="item">
-          <label htmlFor=""></label>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-      {/* ))} */}
-      <button onClick={() => router.back()}>back</button>
-    </div>
+    <EditFormLabel cid={cid} label="Scan-to-email">
+      <div className="editForm">
+        <form onSubmit={handleSubmitForm} className="bg-red-100 border border-red-300">
+          <TextInput
+            name="hostname"
+            value={formData.hostname}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
+          <TextInput
+            name="port"
+            value={formData.port}
+            onChange={handleInputChange}
+            required
+          />
+          <SubmitButton />
+        </form>
+        <BackButton cid={cid} />
+      </div>
+    </EditFormLabel>
   )
 }
 
