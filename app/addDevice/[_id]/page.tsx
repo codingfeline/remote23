@@ -1,46 +1,49 @@
 'use client'
 
-import { CustomerType, UseBack, TextInput, UseForm } from '@components'
+import {
+  CustomerType,
+  UseBack,
+  TextInput,
+  UseForm,
+  EditFormLabel,
+  SubmitButton,
+} from '@components'
 
-const AddContact = ({ params }: { params: CustomerType }) => {
+const AddContact = ({ params }: { params: { _id: string } }) => {
+  const cid = params._id
   const { formData, handleInputChange, handleSubmit } = UseForm({
     make: '',
     username: '',
     password: '',
     api: 'insertDevice',
-    cid: params._id || '',
+    cid,
   })
 
   return (
-    <>
-      <h5>Add Device</h5>
+    <EditFormLabel cid={cid} label="Add Device">
       <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Device info</legend>
-          <TextInput
-            name="make"
-            value={formData.make}
-            required
-            onChange={handleInputChange}
-          />
-          <TextInput
-            name="username"
-            value={formData.username}
-            required
-            onChange={handleInputChange}
-          />
-          <TextInput
-            type="password"
-            name="password"
-            value={formData.password}
-            required
-            onChange={handleInputChange}
-          />
-        </fieldset>
-        <button type="submit">Submit</button>
+        <TextInput
+          name="make"
+          value={formData.make}
+          required
+          onChange={handleInputChange}
+        />
+        <TextInput
+          name="username"
+          value={formData.username}
+          required
+          onChange={handleInputChange}
+        />
+        <TextInput
+          type="password"
+          name="password"
+          value={formData.password}
+          required
+          onChange={handleInputChange}
+        />
+        <SubmitButton />
       </form>
-      <UseBack />
-    </>
+    </EditFormLabel>
   )
 }
 
