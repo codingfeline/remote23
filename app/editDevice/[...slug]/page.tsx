@@ -65,33 +65,27 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
 
   return (
     <EditFormLabel cid={cid} label="Device">
-      <div className="editForm">
-        <form
-          onSubmit={handleSubmitForm}
-          className="bg-orange-100 border border-orange-200"
-        >
-          <TextInput
-            name="make"
-            value={formData.make}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          <SubmitButton />
-        </form>
-        <BackButton cid={cid} />
-      </div>
+      <form onSubmit={handleSubmitForm}>
+        <TextInput
+          name="make"
+          value={formData.make}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="username"
+          value={formData.username}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <SubmitButton />
+      </form>
     </EditFormLabel>
   )
 }

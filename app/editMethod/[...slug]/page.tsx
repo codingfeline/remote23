@@ -65,46 +65,40 @@ const EditMethod = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <EditFormLabel cid={cid} label="Remote Method">
-      <div className="editForm">
-        <form
-          onSubmit={handleSubmitForm}
-          className="bg-yellow-100 border border-yellow-300"
-        >
-          <TextInput
-            name="method"
-            value={formData.methodName}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="url"
-            value={formData.url}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          <TextArea
-            name="notes"
-            value={formData.notes}
-            required
-            onChange={handleInputChange}
-          />
-          <SubmitButton />
-        </form>
-        <BackButton cid={cid} />
-      </div>
+    <EditFormLabel cid={cid} label="Edit Method">
+      <form onSubmit={handleSubmitForm}>
+        <TextInput
+          name="method"
+          value={formData.methodName}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="url"
+          value={formData.url}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="username"
+          value={formData.username}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <TextArea
+          name="notes"
+          value={formData.notes}
+          required
+          onChange={handleInputChange}
+        />
+        <SubmitButton />
+      </form>
     </EditFormLabel>
   )
 }

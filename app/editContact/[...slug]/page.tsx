@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
 //prettier-ignore
-import { TextInput, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType, EditFormLabel, SubmitButton, BackButton } from '@components'
+import { TextInput, useAppDispatch, useAppSelector, EditFormLabel, SubmitButton } from '@components'
 import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
 import { ContactType } from '@utils/types/customer'
@@ -83,31 +83,28 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <EditFormLabel cid={cid} label="Contact">
-      <div className="editForm">
-        <form onSubmit={handleSubmitForm} className="bg-blue-100 border border-blue-200">
-          <TextInput
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="tel"
-            value={formData.tel}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-          <SubmitButton />
-        </form>
-        <BackButton cid={cid} />
-      </div>
+    <EditFormLabel cid={cid} label="Edit Contact">
+      <form onSubmit={handleSubmitForm}>
+        <TextInput
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="tel"
+          value={formData.tel}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+        />
+        <SubmitButton />
+      </form>
     </EditFormLabel>
   )
 }

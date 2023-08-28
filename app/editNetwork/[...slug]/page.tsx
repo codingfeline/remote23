@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
 //prettier-ignore
-import { TextInput, NetworkType, TextArea, UseForm, useAppDispatch, useAppSelector, CustomerType, SubmitButton, EditFormLabel, BackButton } from '@components'
+import { TextInput, NetworkType, useAppDispatch, useAppSelector, SubmitButton, EditFormLabel, BackButton } from '@components'
 import { fetchCustomers } from '@components'
 import { useRouter } from 'next/navigation'
 import CustomerName from '@components/CustomerName'
@@ -79,35 +79,24 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
 
   return (
     <EditFormLabel label="Network" cid={cid}>
-      <div className="editForm network">
-        <form onSubmit={handleSubmitForm} className="bg-green-100">
-          <TextInput
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="domain"
-            value={formData.domain}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput name="dns1" value={formData.dns1} onChange={handleInputChange} />
-          <TextInput
-            name="dns2"
-            value={formData.dns2 || ''}
-            onChange={handleInputChange}
-          />
-          <TextInput
-            name="dns3"
-            value={formData.dns3 || ''}
-            onChange={handleInputChange}
-          />
-          <SubmitButton />
-        </form>
-        <BackButton cid={cid} />
-      </div>
+      <form onSubmit={handleSubmitForm}>
+        <TextInput
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="domain"
+          value={formData.domain}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput name="dns1" value={formData.dns1} onChange={handleInputChange} />
+        <TextInput name="dns2" value={formData.dns2 || ''} onChange={handleInputChange} />
+        <TextInput name="dns3" value={formData.dns3 || ''} onChange={handleInputChange} />
+        <SubmitButton />
+      </form>
     </EditFormLabel>
   )
 }
