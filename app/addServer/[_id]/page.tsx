@@ -1,56 +1,51 @@
 'use client'
 
-import { CustomerType, TextInput, UseBack, UseForm } from '@components'
+import {
+  BackButton,
+  CustomerType,
+  EditFormLabel,
+  SubmitButton,
+  TextInput,
+  UseBack,
+  UseForm,
+} from '@components'
 
-const AddContact = ({ params }: { params: CustomerType }) => {
+const AddContact = ({ params }: { params: { _id: string } }) => {
+  const cid = params._id
   const { formData, handleInputChange, handleSubmit } = UseForm({
     name: '',
     ip: '',
     username: '',
     password: '',
     api: 'insertServer',
-    cid: params._id || '',
+    cid,
   })
 
   return (
-    <>
-      <h5>Add Server</h5>
+    <EditFormLabel cid={cid} label="Add Server">
       <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Remote Method</legend>
-          <TextInput
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="ip"
-            value={formData.ip}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-        </fieldset>
-        <div>
-          <button type="submit" className="link">
-            Submit
-          </button>
-        </div>
+        <TextInput
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput name="ip" value={formData.ip} onChange={handleInputChange} required />
+        <TextInput
+          name="username"
+          value={formData.username}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <SubmitButton />
       </form>
-      <UseBack />
-    </>
+    </EditFormLabel>
   )
 }
 
