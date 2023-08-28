@@ -63,40 +63,34 @@ const EditContact = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <EditFormLabel cid={cid} label="Scan-to-folder">
-      <div className="editForm">
-        <form
-          onSubmit={handleSubmitForm}
-          className="bg-indigo-200 border border-indigo-300"
-        >
-          <TextInput
-            name="hostname"
-            value={formData.hostname}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="folder"
-            value={formData.folder}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          <SubmitButton />
-        </form>
-        <BackButton cid={cid} />
-      </div>
+    <EditFormLabel cid={cid} label="Scan-to-Folder">
+      <form onSubmit={handleSubmitForm}>
+        <TextInput
+          name="hostname"
+          value={formData.hostname}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="folder"
+          value={formData.folder}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="username"
+          value={formData.username}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <SubmitButton />
+      </form>
     </EditFormLabel>
   )
 }
