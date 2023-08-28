@@ -1,46 +1,43 @@
 'use client'
+//prettier-ignore
+import { CustomerType, UseBack, TextInput, UseForm, EditFormLabel, SubmitButton,
+} from '@components'
 
-import { CustomerType, UseBack, TextInput, UseForm } from '@components'
-
-const AddContact = ({ params }: { params: CustomerType }) => {
+const AddContact = ({ params }: { params: { _id: string } }) => {
+  const cid = params._id
   const { formData, handleInputChange, handleSubmit } = UseForm({
     name: '',
     domain: '',
     api: 'insertNetwork',
-    cid: params._id || '',
+    cid,
     dns: '',
   })
 
   return (
-    <>
-      <h5>Add Device</h5>
+    <EditFormLabel cid={cid} label="Add Device">
       <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Device info</legend>
-          <TextInput
-            name="name"
-            value={formData.name}
-            required
-            onChange={handleInputChange}
-          />
-          <TextInput
-            name="domain"
-            value={formData.domain}
-            required
-            onChange={handleInputChange}
-          />
-          <TextInput
-            type="text"
-            name="dns"
-            value={formData.dns}
-            required
-            onChange={handleInputChange}
-          />
-        </fieldset>
-        <button type="submit">Submit</button>
+        <TextInput
+          name="name"
+          value={formData.name}
+          required
+          onChange={handleInputChange}
+        />
+        <TextInput
+          name="domain"
+          value={formData.domain}
+          required
+          onChange={handleInputChange}
+        />
+        <TextInput
+          type="text"
+          name="dns"
+          value={formData.dns}
+          required
+          onChange={handleInputChange}
+        />
+        <SubmitButton />
       </form>
-      <UseBack />
-    </>
+    </EditFormLabel>
   )
 }
 
