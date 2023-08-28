@@ -66,36 +66,29 @@ const EditServer = ({ params }: { params: { slug: string } }) => {
 
   return (
     <EditFormLabel cid={cid} label="Server">
-      <div className="editForm">
-        <form onSubmit={handleSubmitForm} className="bg-lime-100 border border-lime-200">
-          <TextInput
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="ip"
-            value={formData.ip}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-            required
-          />
-          <TextInput
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          <SubmitButton />
-        </form>
-        <BackButton cid={cid} />
-      </div>
+      <form onSubmit={handleSubmitForm}>
+        <TextInput
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput name="ip" value={formData.ip} onChange={handleInputChange} required />
+        <TextInput
+          name="username"
+          value={formData.username}
+          onChange={handleInputChange}
+          required
+        />
+        <TextInput
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <SubmitButton />
+      </form>
+      {/* <BackButton cid={cid} /> */}
     </EditFormLabel>
   )
 }
