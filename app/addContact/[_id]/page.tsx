@@ -1,46 +1,42 @@
 'use client'
+//prettier-ignore
+import { UseForm, TextInput, EditFormLabel, SubmitButton } from '@components'
 
-import { CustomerType, UseForm, UseBack, TextInput } from '@components'
-
-const AddContact = ({ params }: { params: CustomerType }) => {
+const AddContact = ({ params }: { params: { _id: string } }) => {
+  const cid = params._id
   const { formData, handleInputChange, handleSubmit } = UseForm({
     name: '',
     tel: '',
     email: '',
     api: 'insertContact',
-    cid: params._id || '',
+    cid,
   })
 
   return (
-    <>
-      <h5>Add Contact</h5>
+    <EditFormLabel cid={cid} label="Add Contact">
       <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>IT Contact</legend>
-          <TextInput
-            name="name"
-            value={formData.name}
-            required
-            onChange={handleInputChange}
-          />
-          <TextInput
-            name="tel"
-            value={formData.tel}
-            required
-            onChange={handleInputChange}
-          />
-          <TextInput
-            type="email"
-            name="email"
-            value={formData.email}
-            required
-            onChange={handleInputChange}
-          />
-        </fieldset>
-        <button type="submit">Submit</button>
+        <TextInput
+          name="name"
+          value={formData.name}
+          required
+          onChange={handleInputChange}
+        />
+        <TextInput
+          name="tel"
+          value={formData.tel}
+          required
+          onChange={handleInputChange}
+        />
+        <TextInput
+          type="email"
+          name="email"
+          value={formData.email}
+          required
+          onChange={handleInputChange}
+        />
+        <SubmitButton />
       </form>
-      <UseBack />
-    </>
+    </EditFormLabel>
   )
 }
 
