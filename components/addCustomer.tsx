@@ -1,14 +1,8 @@
 'use client'
-
-import { useState, useEffect } from 'react'
-import Input from '@components/Input'
-// import axios from 'axios'
-import axios from '@components/axios'
-import { SubmitButton, TextInput } from '@components'
-import { useRouter } from 'next/navigation'
-import { useAppDispatch, fetchCustomers } from '@components'
-import { BiCheckCircle, BiCross } from 'react-icons/bi'
-import { RxCrossCircled } from 'react-icons/rx'
+//prettier-ignore
+import { useState, useEffect, SubmitButton, TextInput,useAppDispatch, fetchCustomers, axios, Cross, CheckCircle } from '@components'
+import SolutionExists from './addCustomer/SolutionExists'
+import AddedSuccessfully from './addCustomer/AddedSuccessfully'
 
 type solutionType = {
   _id: string
@@ -16,7 +10,6 @@ type solutionType = {
 }
 
 const AddCustomer = () => {
-  const router = useRouter()
   const dispatch = useAppDispatch()
   const [name, setName] = useState<string>('')
   const [solutions, setSolutions] = useState<string[]>([])
@@ -28,6 +21,8 @@ const AddCustomer = () => {
   const [newSolution, setNewSolution] = useState('')
   const [newSolErr, setNewSolErr] = useState(false)
   const [newSolBlank, setNewSolBlank] = useState(false)
+  const [solNameExists, setSolNameExists] = useState(false)
+  const [custNameExists, setCustNameExists] = useState(false)
 
   useEffect(() => {
     fetchSolutions()
@@ -64,22 +59,29 @@ const AddCustomer = () => {
     setSelected('choose')
     setNewSolErr(false)
     setNewSolBlank(false)
+    setSolNameExists(false)
+    setNewSolution('')
   }
+  const firstUpper = newSolution.charAt(0).toUpperCase() + newSolution.slice(1)
+
+  const lower = solutions.map(s => s.toLocaleLowerCase())
+  const dup = (newS: string) => lower.includes(newS)
 
   const addSolution = (e: React.FormEvent) => {
     e.preventDefault()
-    const lower = solutions.map(s => s.toLocaleLowerCase())
+    setSolNameExists(false)
+
     if (newSolution !== '') {
-      if (lower.includes(newSolution.toLowerCase())) {
+      if (dup(newSolution.toLowerCase())) {
         console.log('name exists')
+        setSolNameExists(true)
       } else {
-        const firstUpper = newSolution.charAt(0).toUpperCase() + newSolution.slice(1)
         axios.post('solutions', { name: firstUpper }).then(res => {
           console.log(res)
           if (res.statusText === 'Created') {
             console.log('ok')
             fetchSolutions()
-            setSelected(newSolution)
+            setSelected(firstUpper)
             setShow(false)
             setNewSolution('')
           }
@@ -92,10 +94,19 @@ const AddCustomer = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
     if (selected === 'new' && newSolution.length === 0) {
       setNewSolBlank(true)
+    } else if (
+      selected === 'new' &&
+      newSolution.length > 0 &&
+      dup(newSolution.toLowerCase())
+    ) {
+      setSolNameExists(true)
+      setNewSolErr(false)
     } else if (selected === 'new' && newSolution.length > 0) {
       setNewSolErr(true)
+      setNewSolBlank(false)
     } else {
       axios.post('customers', { name: name, solution: selected }).then(res => {
         console.log(res)
@@ -116,6 +127,8 @@ const AddCustomer = () => {
       })
     }
   }
+
+  const placeholder = newSolBlank ? 'enter new solution' : ''
 
   const addSolutionInfo = (id: string) => {
     console.log('new cust added', id)
@@ -154,7 +167,6 @@ const AddCustomer = () => {
               <option value="new">ADD NEW</option>
             </select>
           </div>
-
           {show && (
             <div className="w-full flex justify-end items-center">
               <form
@@ -167,14 +179,21 @@ const AddCustomer = () => {
                   <input
                     type="text"
                     value={newSolution}
-                    onChange={e => setNewSolution(e.target.value)}
+                    onChange={e => {
+                      setNewSolution(e.target.value)
+                      setSolNameExists(false)
+                      setNewSolErr(false)
+                      setNewSolBlank(false)
+                    }}
                     required
-                    placeholder={` ${newSolBlank ? ' enter new solution' : ''}`}
-                    className={` ${newSolBlank && 'bg-red-200 border border-red-600'}`}
+                    placeholder={placeholder}
+                    className={` ${
+                      (newSolBlank || solNameExists) && 'bg-red-200 border border-red-600'
+                    }`}
                   />
                 </div>
                 <div className="flex justify-center items-center p-2">
-                  <BiCheckCircle
+                  <CheckCircle
                     onClick={addSolution}
                     title="Add New Solution"
                     className={`hover:text-green-600 ${
@@ -182,28 +201,16 @@ const AddCustomer = () => {
                       'text-green-600 text-[40px] animate-bounce hover:animate-none'
                     }`}
                   />
-                  <RxCrossCircled
-                    onClick={cancel}
-                    title="Cancel"
-                    className="hover:text-red-500"
-                  />
+                  <Cross onClick={cancel} title="Cancel" className="hover:text-red-500" />
                 </div>
               </form>
             </div>
           )}
           <SubmitButton />
+          {solNameExists && <SolutionExists newS={newSolution} />}
         </fieldset>
       </form>
-      {added && (
-        <div className="flex flex-col justify-center items-center w-2/3 m-auto mt-8 bg-blue-100 p-5 rounded-md">
-          <div>
-            <i>{newCust}</i> added successfully
-          </div>
-          <button className="m-2" onClick={() => router.push(`/cust/${newId}`)}>
-            View <i>{newCust}</i>
-          </button>
-        </div>
-      )}
+      {added && <AddedSuccessfully newCust={newCust} newId={newId} />}
     </div>
   )
 }
