@@ -8,7 +8,7 @@ export type CustomerType = {
   devicePassword: DevicePasswordType[]
   scanFolder: ScanFolderType[]
   scanEmail: ScanEmailType[]
-  networ: NetworkType[]
+  network: NetworkType[]
 } & idName
 
 export type ContactType = {
@@ -49,7 +49,11 @@ export type ScanEmailType = {
 export type NetworkType = {
   name: string
   domain: string
-  dns: [string]
+  dns1: string
+  _id: string
+  dns2?: string
+  dns3?: string
+  dns?: string
 }
 
 export type MethodType = {
@@ -72,6 +76,11 @@ export type idName = {
 export type UserPassType = {
   username: string
   password: string
+}
+
+export type SolutionType = {
+  _id: string
+  name: string
 }
 // handleClick: () => void
 // handleClick: (event: React.MouseEvent<HTMLButtonElement>, item: string) => void
