@@ -20,7 +20,7 @@ const AddSolution = ({
   addSolution,
 }: AddSolutionPropsType) => {
   return (
-    <div className="w-full flex justify-end items-center">
+    <div className="w-full flex justify-center items-center">
       <form className={`bg-indigo-200 border border-indigo-300 w-3/5 py-2 rounded-md`}>
         <div className="flex flex-col">
           <input
@@ -28,7 +28,7 @@ const AddSolution = ({
             value={newSolution}
             onChange={handleSolChange}
             required
-            placeholder={newSolBlank ? 'enter new solution' : ''}
+            placeholder={'enter new solution'}
             className={` ${
               (newSolBlank || solNameExists) && 'bg-red-200 border border-red-600'
             }`}

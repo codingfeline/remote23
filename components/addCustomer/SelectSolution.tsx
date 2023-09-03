@@ -1,12 +1,16 @@
 import React from 'react'
 
-type SelectPropType = {
+type SelectSolutionPropType = {
   selected: string
   solutions: string[]
   handleSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
-const SelectSolution = ({ selected, handleSelect, solutions }: SelectPropType) => {
+const SelectSolution = ({
+  selected,
+  handleSelect,
+  solutions,
+}: SelectSolutionPropType) => {
   return (
     <div className="item">
       <label htmlFor="solution">solution</label>
@@ -18,8 +22,8 @@ const SelectSolution = ({ selected, handleSelect, solutions }: SelectPropType) =
         required
       >
         <option value="">Choose one</option>
-        {solutions.map(sol => (
-          <option key={sol} value={sol}>
+        {solutions.map((sol, i) => (
+          <option key={i} value={sol}>
             {sol}
           </option>
         ))}
