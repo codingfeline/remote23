@@ -1,6 +1,6 @@
 'use client'
 //prettier-ignore
-import { useState, useEffect, SubmitButton, TextInput, useAppSelector, useAppDispatch, fetchCustomers, axios, ItemExists, AddedSuccessfully, AddSolution, SelectSolution, FormEvent, ChangeEvent, fetchSolutions, addOneSolution, Plus } from '@components'
+import { useState, useEffect, SubmitButton, TextInput, useAppSelector, useAppDispatch, fetchCustomers, axios, ItemExists, AddedSuccessfully, AddSolution, SelectSolution, FormEvent, ChangeEvent, fetchSolutions, addOneSolution } from '@components'
 
 const AddCustomer = () => {
   const dispatch = useAppDispatch()
@@ -41,48 +41,6 @@ const AddCustomer = () => {
   }
 
   const firstUpper = newSolution.charAt(0).toUpperCase() + newSolution.slice(1)
-
-  const addSolution = (e: FormEvent) => {
-    e.preventDefault()
-    const lower = solutions.map(s => s.toLowerCase())
-    const dup = (newS: string) => lower.includes(newS)
-    if (newSolution !== '') {
-      if (dup(newSolution.toLowerCase())) {
-        console.log('name exists')
-        setSolNameExists(true)
-      } else {
-        // axios.post('solutions', { name: firstUpper }).then(res => {
-        //   console.log(res)
-        //   if (res.statusText === 'Created') {
-        //     console.log('ok')
-        //     dispatch(fetchSolutions())
-        //     setSelected(firstUpper)
-        //     setShow(false)
-        //     setNewSolution('')
-        //   }
-        // })
-        const info = { name: firstUpper }
-        try {
-          // Dispatch the addSolution action with the solutionData
-          dispatch(addOneSolution(info))
-
-          dispatch(fetchSolutions())
-          setSelected(firstUpper)
-          setShow(false)
-          setNewSolution('')
-
-          // Optionally, you can handle success or reset the form here
-          // setSolutionData({ title: '', description: '' });
-        } catch (error) {
-          // Handle any errors that may occur during the dispatch
-          console.error('Error creating solution:', error)
-        }
-        // dispatch(addSolution(info))
-      }
-    } else {
-      setNewSolBlank(true)
-    }
-  }
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -142,7 +100,7 @@ const AddCustomer = () => {
     setCustNameExists(false)
   }
 
-  const handleTest = async (e: FormEvent) => {
+  const addSolution = async (e: FormEvent) => {
     e.preventDefault()
     solutions.push(test)
     const duplicate = solutions
@@ -161,6 +119,7 @@ const AddCustomer = () => {
         dispatch(fetchSolutions())
         setSelected(firstUpper)
         setShow(false)
+        setNewSolution('')
       } catch (error) {
         console.log(error)
       }
@@ -190,7 +149,7 @@ const AddCustomer = () => {
           handleSolChange={handleSolChange}
           newSolBlank={newSolBlank}
           solNameExists={solNameExists}
-          addSolution={handleTest}
+          addSolution={addSolution}
           newSolErr={newSolErr}
           cancel={cancel}
         />
