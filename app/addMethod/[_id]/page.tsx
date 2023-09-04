@@ -18,7 +18,7 @@ const AddContact = ({ params }: { params: { _id: string } }) => {
     <EditFormLabel label="Add Method" cid={cid}>
       <form onSubmit={handleSubmit}>
         <TextInput
-          name="name"
+          name="methodName"
           value={formData.methodName}
           onChange={handleInputChange}
           required

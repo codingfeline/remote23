@@ -68,7 +68,7 @@ const EditMethod = ({ params }: { params: { slug: string } }) => {
     <EditFormLabel cid={cid} label="Edit Method">
       <form onSubmit={handleSubmitForm}>
         <TextInput
-          name="method"
+          name="methodName"
           value={formData.methodName}
           onChange={handleInputChange}
           required
