@@ -12,8 +12,10 @@ const SelectSolution = ({
   solutions,
 }: SelectSolutionPropType) => {
   return (
-    <div className="item">
-      <label htmlFor="solution">solution</label>
+    <div className="flex flex-col">
+      {/* <label className="w-full text-center" htmlFor="solution">
+        solution
+      </label> */}
       <select
         name="solution"
         id="solution"
@@ -21,7 +23,7 @@ const SelectSolution = ({
         value={selected}
         required
       >
-        <option value="">Choose one</option>
+        <option value="">Choose solution</option>
         {solutions.map((sol, i) => (
           <option key={i} value={sol}>
             {sol}
