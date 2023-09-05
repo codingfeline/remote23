@@ -32,6 +32,7 @@ const EditFormLabel = ({
         <span
           className={`rounded-l-md border p-2 border-r-0
         ${label.includes('Network') && 'networkDark'}
+        ${label.includes('Solution') && 'solutionDark'}
         ${label.includes('Folder') && 'folderDark'}
         ${label.includes('Email') && 'emailDark'}
         ${label.includes('Device') && 'deviceDark'}
@@ -47,6 +48,7 @@ const EditFormLabel = ({
           ${label.includes('Method') && 'methodLight'}
           ${label.includes('Server') && 'serverLight'}
           ${label.includes('Network') && 'networkLight'}
+          ${label.includes('Solution') && 'solutionLight'}
           ${label.includes('Folder') && 'folderLight'}
           ${label.includes('Email') && 'emailLight'}
           ${label.includes('Device') && 'deviceLight'}
@@ -61,6 +63,7 @@ const EditFormLabel = ({
         ${label.includes('Server') && 'serverLight'}
         ${label.includes('Method') && 'methodLight'}
         ${label.includes('Network') && 'networkLight'}
+        ${label.includes('Solution') && 'solutionLight'}
         ${label.includes('Folder') && 'folderLight'}
         ${label.includes('Email') && 'emailLight'}
         ${label.includes('Device') && 'deviceLight'}
