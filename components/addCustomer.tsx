@@ -1,6 +1,6 @@
 'use client'
 //prettier-ignore
-import { useState, useEffect, SubmitButton, TextInput, useAppSelector, useAppDispatch, fetchCustomers, axios, ItemExists, AddedSuccessfully, AddSolution, SelectSolution, FormEvent, ChangeEvent, fetchSolutions, addOneSolution } from '@components'
+import { useState, useEffect, SubmitButtonCol, TextInputCol, TextInput, SubmitButton,  useAppSelector, useAppDispatch, fetchCustomers, axios, ItemExists, AddedSuccessfully, AddSolution, SelectSolution, FormEvent, ChangeEvent, fetchSolutions, addOneSolution } from '@components'
 
 const AddCustomer = () => {
   const dispatch = useAppDispatch()
@@ -128,22 +128,26 @@ const AddCustomer = () => {
 
   if (!solutions.length) return 'Loading...'
   return (
-    <div className="mt-6 mx-auto place-self-center w-full sm:w-[550px]  flex flex-col ">
+    <div className="mt-6 mx-auto place-self-center w-full sm:w-[400px]  flex flex-col ">
       {test}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="z-[3]">
         <fieldset className="p-6 bg-blue-100 border border-blue-300">
           <legend>Add Customer</legend>
-          <TextInput name="name" value={name} required onChange={handleNameChange} />
+          <TextInputCol name="name" value={name} required onChange={handleNameChange} />
           <SelectSolution
             selected={selected}
             solutions={solutions}
             handleSelect={handleSelect}
           />
-          <SubmitButton />
-          {custNameExists && <ItemExists item={name} />}
+          <SubmitButtonCol />
         </fieldset>
       </form>
-      {show && (
+      {/* {show && ( */}
+      <div
+        className={`-translate-y-40 transition-transform ${
+          show && '-translate-y-[1.5rem]'
+        }`}
+      >
         <AddSolution
           newSolution={newSolution}
           handleSolChange={handleSolChange}
@@ -153,8 +157,11 @@ const AddCustomer = () => {
           newSolErr={newSolErr}
           cancel={cancel}
         />
-      )}
-      {solNameExists && <ItemExists item={newSolution} />}
+        {custNameExists && <ItemExists item={name} />}
+        {solNameExists && <ItemExists item={newSolution} />}
+      </div>
+      {/* )} */}
+
       {added && <AddedSuccessfully newCust={newCust} newId={newId} />}
     </div>
   )
