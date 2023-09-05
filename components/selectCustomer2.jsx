@@ -75,7 +75,7 @@ const SelectCustomer2 = () => {
   return (
     <>
       <Select
-        className="w-1/3 m-auto my-1"
+        className="w-1/3 m-auto my-1 z-10"
         value={selectedOption}
         options={options}
         onChange={handleChange}
