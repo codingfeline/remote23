@@ -1,6 +1,6 @@
 'use client'
 //prettier-ignore
-import { useState, useEffect, SubmitButtonCol, TextInputCol, TextInput, SubmitButton,  useAppSelector, useAppDispatch, fetchCustomers, axios, ItemExists, AddedSuccessfully, AddSolution, SelectSolution, FormEvent, ChangeEvent, fetchSolutions, addOneSolution } from '@components'
+import { useState, useEffect, SubmitButtonCol, TextInputCol, Cross, TextInput, SubmitButton,  useAppSelector, useAppDispatch, fetchCustomers, axios, Error, AddedSuccessfully, AddSolution, SelectSolution, FormEvent, ChangeEvent, fetchSolutions, addOneSolution, Send, Bin } from '@components'
 
 const AddCustomer = () => {
   const dispatch = useAppDispatch()
@@ -20,21 +20,30 @@ const AddCustomer = () => {
   const [custNameExists, setCustNameExists] = useState(false)
   const [newSolErr, setNewSolErr] = useState(false)
   const [test, setTest] = useState('')
+  const [nameSolutionEmpty, setNameSolutionEmpty] = useState(false)
 
   useEffect(() => {
     dispatch(fetchCustomers())
     dispatch(fetchSolutions())
   }, [])
 
-  const cancel = () => {
-    setShow(false)
+  const resetSolution = () => {
     setSelected('choose')
     setNewSolution('')
+    setShow(false)
     setNewSolBlank(false)
     setSolNameExists(false)
   }
 
+  const cancel = () => {
+    setCustNameExists(false)
+    setName('')
+    setNameSolutionEmpty(false)
+    resetSolution()
+  }
+
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    setNameSolutionEmpty(false)
     const selectedValue = e.target.value
     setSelected(selectedValue)
     selectedValue === 'new' ? setShow(true) : setShow(false)
@@ -47,7 +56,9 @@ const AddCustomer = () => {
     dispatch(fetchCustomers())
     const lower = solutions.map(s => s.toLowerCase())
     const dup = (newS: string) => lower.includes(newS)
-    if (customerNames.map(c => c.toLowerCase()).includes(name.toLowerCase())) {
+    if (name.trim().length < 4 || selected === 'choose') {
+      setNameSolutionEmpty(true)
+    } else if (customerNames.map(c => c.toLowerCase()).includes(name.toLowerCase())) {
       setCustNameExists(true)
     } else if (selected === 'new' && newSolution.length === 0) {
       setNewSolBlank(true)
@@ -98,6 +109,7 @@ const AddCustomer = () => {
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
     setCustNameExists(false)
+    setNameSolutionEmpty(false)
   }
 
   const addSolution = async (e: FormEvent) => {
@@ -139,7 +151,11 @@ const AddCustomer = () => {
             solutions={solutions}
             handleSelect={handleSelect}
           />
-          <SubmitButtonCol />
+          {/* <SubmitButtonCol cancel={cancel} name={name} /> */}
+          <div className="flex justify-around pt-2">
+            <Bin onClick={cancel} title="Reset" />
+            <Send onClick={handleSubmit} title="Add Customer" />
+          </div>
         </fieldset>
       </form>
       {/* {show && ( */}
@@ -155,10 +171,13 @@ const AddCustomer = () => {
           solNameExists={solNameExists}
           addSolution={addSolution}
           newSolErr={newSolErr}
-          cancel={cancel}
+          reset={resetSolution}
         />
-        {custNameExists && <ItemExists item={name} />}
-        {solNameExists && <ItemExists item={newSolution} />}
+        {custNameExists && <Error item={`${name} exists`} />}
+        {solNameExists && <Error item={`${newSolution} exists`} />}
+        {nameSolutionEmpty && (
+          <Error item={`pls fill in all and name is more than 3 char`} />
+        )}
       </div>
       {/* )} */}
 
