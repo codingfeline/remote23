@@ -23,7 +23,7 @@ const SelectSolution = ({
         value={selected}
         required
       >
-        <option value="">Choose solution</option>
+        <option value="choose">Choose solution</option>
         {solutions.map((sol, i) => (
           <option key={i} value={sol}>
             {sol}
