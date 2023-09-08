@@ -15,7 +15,7 @@ export { default as EditFormLabel } from './EditFormLabel'
 export { default as BackButton } from './BackButton'
 export { default as FormBox } from './FormBox'
 export { default as AddSolution } from './addCustomer/AddSolution'
-export { default as ItemExists } from './addCustomer/ItemExists'
+export { default as Error } from './addCustomer/Error'
 export { default as AddedSuccessfully } from './addCustomer/AddedSuccessfully'
 export { default as SelectSolution } from './addCustomer/SelectSolution'
 
@@ -39,6 +39,7 @@ export type { ScanEmailType } from '@utils/types/customer'
 export type { ServerSetupType } from '@utils/types/customer'
 export type { NetworkType } from '@utils/types/customer'
 export type { SolutionType } from '@utils/types/customer'
+export { type SolutionInfoType } from '@utils/types/customer'
 
 // export { default as parse } from 'html-react-parser'
 
@@ -46,16 +47,23 @@ export { default as UseProvider } from '@redux/provider'
 export { useAppDispatch, useAppSelector } from '@redux/hooks'
 export { increment } from '@redux/features/counter/counterSlice'
 export { fetchCustomers } from '@redux/features/customer/customerSlice'
+export { fetchSolutions, addOneSolution } from '@redux/features/solution/solutionSlice'
+export { default as fetchCounter } from '@redux/features/counter/counterSlice'
+export { fetchUsers } from '@redux/features/user/userSlice'
 
 // hooks
 export { default as ToggleHook } from './useToggle'
 export { default as useCopyHook } from './useCopyHook'
 export { default as UseBack } from './useBack'
 export { default as UseForm } from './HandleForm'
+export { default as URL } from './Url'
 
 // inputs
 export { default as TextArea } from './TextArea'
 export { default as TextInput } from './TextInput'
+export { default as TextInputCol } from './TextInputCol'
+export { default as FormParent } from './FormParent'
+export { default as SubmitButtonCol } from './SubmitButtonCol'
 
 // export { Dialog, Transition } from '@headlessui/react'
 export { FaBars } from 'react-icons/fa'
@@ -66,6 +74,8 @@ export { MdKeyboardBackspace as Back } from 'react-icons/md'
 export { GoHome as Home } from 'react-icons/go'
 export { BiCheckCircle as CheckCircle } from 'react-icons/bi'
 export { RxCrossCircled as Cross } from 'react-icons/rx'
+export { TbSend as Send } from 'react-icons/tb'
+export { RiDeleteBinLine as Bin, RiDeleteBin6Line as Bin2 } from 'react-icons/ri'
 
 // export { default as Modal } from './Modal'
 
