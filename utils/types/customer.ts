@@ -1,6 +1,7 @@
 export type CustomerType = {
   name: string
   solution: String
+  solutionInfo: SolutionInfoType[]
   methodInfo: MethodInfoType[]
   contact: ContactType[]
   server: ServerType[]
@@ -79,8 +80,14 @@ export type UserPassType = {
 }
 
 export type SolutionType = {
-  _id: string
+  _id?: string
   name: string
+  meta?: object
 }
+
+export type SolutionInfoType = {
+  portal: string
+  name: string
+} & id & UserPassType
 // handleClick: () => void
 // handleClick: (event: React.MouseEvent<HTMLButtonElement>, item: string) => void
