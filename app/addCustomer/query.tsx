@@ -1,3 +1,4 @@
+import { Cross, Link, SolutionType, useState } from '@components'
 import {
   useSolutionQuery,
   useSolutionsQuery,
@@ -8,6 +9,7 @@ import {
 
 const QueryPlayground = () => {
   const { data, error, isLoading, isFetching, isSuccess } = useSolutionsQuery()
+  const [showUpdate, setShowUpdate] = useState(false)
 
   const SolutionDetail = ({ id }: { id: string }) => {
     const { data } = useSolutionQuery(id)
@@ -36,22 +38,36 @@ const QueryPlayground = () => {
     // console.log('update')
     await updateSolution(updateSol)
   }
-  const deleteHandler = async () => {
-    await deleteSolution(deleteSol._id)
+  const deleteHandler = async (id: string) => {
+    await deleteSolution(id)
   }
 
+  const initUpdate = () => {
+    setShowUpdate(true)
+  }
+  const UpdateForm = (sol: SolutionType) => {
+    const [name, setName] = useState('')
+    return <input type="text" value={name} onChange={e => setName(e.target.value)} />
+  }
   return (
     <>
       {isLoading && 'Loading...'}
       {isFetching && 'Fetching...'}
       {error && 'Something went wrong'}
-      {isSuccess && JSON.stringify(data)}
+      {/* {isSuccess && JSON.stringify(data)} */}
+      {/* <SolutionDetail id="64d8e8c9560e01172cd61cd5" /> */}
+      <ul>
+        {isSuccess &&
+          data.map(sol => (
+            <li className="flex justify-between" key={sol._id}>
+              <Link href={`editSol/${sol._id}`}>{sol.name}</Link>
+              <Cross onClick={() => deleteHandler(sol._id!)} />
+            </li>
+          ))}
+      </ul>
       <hr />
       <br />
-      <SolutionDetail id="64d8e8c9560e01172cd61cd5" />
       <button onClick={addHandler}>add</button>
-      <button onClick={updateHandler}>update</button>
-      <button onClick={deleteHandler}>delete</button>
     </>
   )
 }
