@@ -65,7 +65,7 @@ export { default as TextInputCol } from './TextInputCol'
 export { default as FormParent } from './FormParent'
 export { default as SubmitButtonCol } from './SubmitButtonCol'
 
-// export { Dialog, Transition } from '@headlessui/react'
+// icons
 export { FaBars } from 'react-icons/fa'
 export { MdContentCopy as Copy } from 'react-icons/md'
 export { MdOutlineEdit as Edit } from 'react-icons/md'
@@ -76,14 +76,10 @@ export { BiCheckCircle as CheckCircle } from 'react-icons/bi'
 export { RxCrossCircled as Cross } from 'react-icons/rx'
 export { TbSend as Send } from 'react-icons/tb'
 export { RiDeleteBinLine as Bin, RiDeleteBin6Line as Bin2 } from 'react-icons/ri'
-
-// export { default as Modal } from './Modal'
-
-// export { default as ContentEditable } from 'react-contenteditable'
-
-// icons
 export { BsChevronCompactLeft as Left } from 'react-icons/bs'
 export { BsChevronCompactRight as Right } from 'react-icons/bs'
 export { RxDotFilled as Dot } from 'react-icons/rx'
 export { RiAddLine as Plus } from 'react-icons/ri'
 export { BiHide as Hide, BiShow as Show } from 'react-icons/bi'
+
+export { GrUndo as Undo } from 'react-icons/gr'
