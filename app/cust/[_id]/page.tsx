@@ -2,13 +2,12 @@
 //prettier-ignore
 import { ScanFolder, useAppSelector, useAppDispatch, useEffect, useState, Contact, Show, Hide, Link, CustomerType, Method, Server, Device, Setup, fetchCustomers, ScanEmail, useRouter } from '@components'
 import CustomerName from '@components/CustomerName'
-// import ScanFolder from '@components/scanFolder'
 import NetworkConfig from '@components/sections/network'
 import RecentViews from '@components/recentViews'
-// import SelectCustomer from '@components/selectCustomer'
 import SelectCustomer2 from '@components/selectCustomer2'
 import { BiHide, BiShow } from 'react-icons/bi'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
+import SolutionInfo from '@components/solutionInfo'
 
 const cust = ({ params }: { params: CustomerType }) => {
   const router = useRouter()
@@ -66,6 +65,10 @@ const cust = ({ params }: { params: CustomerType }) => {
       {show && <pre>{JSON.stringify(cust, null, 2)}</pre>}
     </>
   )
+  if (!customers.length) {
+    return 'Loading...'
+  }
+
   if (!cust) {
     return (
       <div className="error">
@@ -73,9 +76,6 @@ const cust = ({ params }: { params: CustomerType }) => {
         <button onClick={() => router.push('/')}>home</button>
       </div>
     )
-  }
-  if (!customers.length) {
-    return 'Loading...'
   }
 
   return (
@@ -111,15 +111,15 @@ const cust = ({ params }: { params: CustomerType }) => {
           {cust.solution}
         </span>
       </div>
-
       <ShowRaw />
-      <Method method={cust.methodInfo} cid={cid} />
-      <Contact contact={cust.contact} cid={cid} />
-      <Server server={cust.server} cid={cid} />
-      <Device device={cust.devicePassword} cid={cid} />
-      <ScanEmail scanEmail={cust.scanEmail} cid={cid} />
-      <ScanFolder scanFolder={cust.scanFolder} cid={cid} />
-      <NetworkConfig network={cust.network} cid={cid} />
+      <Method method={cust.methodInfo!} cid={cid} />
+      <SolutionInfo solution={cust.solutionInfo!} cid={cid} />
+      <Contact contact={cust.contact!} cid={cid} />
+      <Server server={cust.server!} cid={cid} />
+      <Device device={cust.devicePassword!} cid={cid} />
+      <ScanEmail scanEmail={cust.scanEmail!} cid={cid} />
+      <ScanFolder scanFolder={cust.scanFolder!} cid={cid} />
+      <NetworkConfig network={cust.network!} cid={cid} />
       {/* <Setup setup={cust.serverSetup} cid={cid} /> */}
     </>
   )
