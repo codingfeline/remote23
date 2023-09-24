@@ -11,7 +11,7 @@ const UseForm = (initialFormData: FormData) => {
   const [formData, setFormData] = useState<FormData>(initialFormData)
 
   const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target
     setFormData(prevData => ({
@@ -22,13 +22,11 @@ const UseForm = (initialFormData: FormData) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    console.log(formData)
     const url = `customers/${formData.cid}/${formData.api}`
     axios
       .put(url, formData)
       .then(res => {
         if (res.statusText === 'OK') {
-          console.log(formData)
           router.back()
         }
       })
