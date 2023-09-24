@@ -24,6 +24,7 @@ body {
 
 @layer base {
   [type='text'],
+  [type='reset'],
   [type='submit'],
   [type='email'],
   [type='url'],
@@ -41,7 +42,7 @@ body {
   textarea,
   .editable,
   select {
-    @apply w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-200 mt-1;
+    @apply w-full border-gray-300 rounded-lg shadow-sm focus:border-gray-500 focus:ring-gray-500 bg-slate-200 mt-1;
   }
   button {
     @apply p-2 hover:bg-gray-300 transition-colors bg-slate-300 w-[99%];
@@ -57,8 +58,11 @@ body {
 .editable {
   @apply p-2;
 }
-form {
-  @apply m-2;
+form,
+input[role='combobox'],
+select,
+option {
+  @apply m-2 text-gray-800;
 }
 form div {
   @apply px-2 flex items-center;
@@ -112,6 +116,11 @@ h1 {
 .item {
   @apply px-2 flex items-center justify-between;
 }
+.item label {
+  @apply w-1/3;
+}
+.item input {
+}
 label {
   @apply w-[100px] mr-2 text-gray-500 tracking-tight;
 }
@@ -134,7 +143,6 @@ nav svg {
 .item {
   /* @apply w-full; */
 }
-
 .showItem {
   @apply flex items-center cursor-pointer;
 }
@@ -150,6 +158,12 @@ span.groupSub {
 }
 .groupMaster {
   @apply showItem delay-500 transition-all flex items-center justify-between select-none;
+}
+.submitGroup {
+  @apply flex border border-gray-300 bg-gray-200 rounded-md justify-between hover:cursor-pointer p-1 px-3 hover:border-gray-400 select-none;
+}
+.submitSub {
+  @apply group-hover:text-gray-900;
 }
 .transIn {
   @apply transition-all ease-in p-1 flex flex-col md:flex-row flex-wrap justify-center max-h-full bg-gray-100;
@@ -176,7 +190,7 @@ legend {
   @apply focus:ring-0;
 }
 .item input[type='text'] {
-  @apply focus:border-indigo-500 focus:ring-indigo-500;
+  @apply focus:border-gray-500 focus:ring-gray-500;
 }
 .recent {
   @apply text-indigo-800;
@@ -188,7 +202,7 @@ nav {
   @apply bg-indigo-300;
 }
 body {
-  @apply bg-bottom bg-no-repeat bg-indigo-200 bg-cover;
+  @apply bg-bottom bg-no-repeat bg-indigo-200 bg-cover bg-[url('/prism2.svg')];
 }
 
 .radio,
@@ -203,17 +217,75 @@ body {
 .error {
   @apply flex flex-col justify-center items-center m-3 p-4 gap-3;
 }
+/* --------------editForm------------- */
 .editForm {
-  @apply flex flex-col w-3/4 mt-9 mx-auto rounded-md;
+  @apply flex flex-col w-full mt-3 mx-auto rounded-lg;
+}
+.editForm label {
+  @apply text-gray-500;
 }
 .editForm span {
   /* @apply bg-indigo-300 p-2 rounded-md; */
 }
 .editForm > form {
-  @apply bg-indigo-300 rounded-md m-0 my-2 p-4;
+  @apply rounded-lg  p-4;
+}
+.editForm.network form {
+  /* @apply bg-green-100; */
 }
 .editForm button {
-  @apply w-1/6;
+  @apply border;
+}
+.editForm input[type='text'] {
+  @apply border border-blue-300 focus:border-blue-500 focus:ring-blue-500;
+}
+.methodDark {
+  @apply bg-yellow-200 border-yellow-300;
+}
+.methodLight {
+  @apply bg-yellow-100 border-yellow-300;
+} /*===*/
+.contactDark {
+  @apply bg-blue-200 border-blue-300;
+}
+.contactLight {
+  @apply bg-blue-100 border-blue-300;
+} /*===*/
+.deviceDark {
+  @apply bg-orange-200 border-orange-300;
+}
+.deviceLight {
+  @apply bg-orange-100 border-orange-300;
+} /*===*/
+.serverDark {
+  @apply bg-lime-200 border-lime-300;
+}
+.serverLight {
+  @apply bg-lime-100 border-lime-300;
+} /*===*/
+.emailDark {
+  @apply bg-red-200 border-red-300;
+}
+.emailLight {
+  @apply bg-red-100 border-red-300;
+} /*===*/
+.folderDark {
+  @apply bg-indigo-200 border-indigo-300;
+}
+.folderLight {
+  @apply bg-indigo-100 border-indigo-300;
+} /*===*/
+.networkDark {
+  @apply bg-green-200 border-green-300;
+}
+.networkLight {
+  @apply bg-green-100 border-green-300;
+}
+.solutionDark {
+  @apply bg-cyan-200 border-cyan-300;
+}
+.solutionLight {
+  @apply bg-cyan-100 border-cyan-300;
 }
 /* =================== */
 .toggle {
