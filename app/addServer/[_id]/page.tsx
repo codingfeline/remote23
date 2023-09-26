@@ -1,14 +1,6 @@
 'use client'
-
-import {
-  BackButton,
-  CustomerType,
-  EditFormLabel,
-  SubmitButton,
-  TextInput,
-  UseBack,
-  UseForm,
-} from '@components'
+//prettier-ignore
+import { EditFormLabel, SubmitButton, TextInput, UseForm, } from '@components'
 
 const AddContact = ({ params }: { params: { _id: string } }) => {
   const cid = params._id
