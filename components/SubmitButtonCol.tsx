@@ -1,8 +1,15 @@
-import { Cross } from '@components'
+import { Cross, Plus } from '@components'
+import { GrSend } from 'react-icons/gr'
+import { RiDeleteBinLine, RiDeleteBin6Line } from 'react-icons/ri'
 
-const SubmitButtonCol = () => {
+type submitProp = {
+  cancel: () => void
+  name: string
+}
+
+const SubmitButtonCol = ({ cancel, name }: submitProp) => {
   return (
-    <div className="flex">
+    <div className="flex gap-1">
       {/* <label htmlFor=""></label> */}
       <button
         type="submit"
@@ -10,6 +17,8 @@ const SubmitButtonCol = () => {
       >
         Submit
       </button>
+      <RiDeleteBin6Line onClick={() => cancel} /> {name}
+      <GrSend />
     </div>
   )
 }
