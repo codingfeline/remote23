@@ -5,7 +5,8 @@ import {
   useAddSolutionMutation,
   useUpdateSolutionMutation,
   useDeleteSolutionMutation,
-} from '@services/solutionsApi'
+} from '@query/features/solution/solutionSlice'
+// } from '@services/solutionsApi'
 
 const QueryPlayground = () => {
   const { data, error, isLoading, isFetching, isSuccess } = useSolutionsQuery()
