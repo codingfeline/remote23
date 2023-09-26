@@ -3,15 +3,17 @@ import React from 'react'
 type InputProps = {
   value: string
   name: string
+  type?: string
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  required?: boolean
 }
 
-const Input = (props: InputProps) => {
+const Input = ({ name, type = 'text', value, handleChange }: InputProps) => {
   return (
     <>
-      <div className="item">
-        <label htmlFor={props.name}>{props.name}</label>
-        <input type="text" value={props.value} onChange={props.handleChange} />
+      <div className="flex flex-col justify-center items-center">
+        {/* <label htmlFor={name}>{name}</label> */}
+        <input type="text" value={value} onChange={handleChange} required />
       </div>
     </>
   )
