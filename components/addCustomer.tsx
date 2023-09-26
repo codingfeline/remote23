@@ -1,13 +1,31 @@
 'use client'
+import SubmitReset from '@app/addCustomer/SubmitReset'
+import QueryPlayground from '@app/addCustomer/query'
+import QueryCustPlayground from '@app/addCustomer/queryCustomer'
 //prettier-ignore
 import { useState, useEffect, SubmitButtonCol, TextInputCol, Cross, TextInput, SubmitButton,  useAppSelector, useAppDispatch, fetchCustomers, axios, Error, AddedSuccessfully, AddSolution, SelectSolution, FormEvent, ChangeEvent, fetchSolutions, addOneSolution, Send, Bin } from '@components'
+//prettier-ignoer
+import {
+  useSolutionsQuery,
+  useSolutionNamesQuery,
+  useAddSolutionMutation,
+} from '@query/features/solution/solutionSlice'
 
 const AddCustomer = () => {
+  const {
+    data: solutions,
+    error,
+    isLoading,
+    isFetching,
+    isSuccess,
+  } = useSolutionNamesQuery()
   const dispatch = useAppDispatch()
   const customerNames = useAppSelector(state => state.customer.customers).map(c => c.name)
-  const solutions = useAppSelector(state => state.solution.solutions)
-    .map(s => s.name)
-    .sort()
+  // const solutions = useAppSelector(state => state.solution.solutions)
+  //   .map(s => s.name)
+  //   .sort()
+  // const solutions = data.map(s => s.name).sort()
+
   const [name, setName] = useState<string>('')
   const [show, setShow] = useState(false)
   const [selected, setSelected] = useState('choose')
@@ -19,7 +37,6 @@ const AddCustomer = () => {
   const [solNameExists, setSolNameExists] = useState(false)
   const [custNameExists, setCustNameExists] = useState(false)
   const [newSolErr, setNewSolErr] = useState(false)
-  const [test, setTest] = useState('')
   const [nameSolutionEmpty, setNameSolutionEmpty] = useState(false)
 
   useEffect(() => {
@@ -54,7 +71,7 @@ const AddCustomer = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     dispatch(fetchCustomers())
-    const lower = solutions.map(s => s.toLowerCase())
+    const lower = solutions!.map(s => s.toLowerCase())
     const dup = (newS: string) => lower.includes(newS)
     if (name.trim().length < 4 || selected === 'choose') {
       setNameSolutionEmpty(true)
@@ -114,34 +131,38 @@ const AddCustomer = () => {
 
   const addSolution = async (e: FormEvent) => {
     e.preventDefault()
-    solutions.push(test)
-    const duplicate = solutions
-      .map(s => s.toLowerCase())
-      .includes(newSolution.toLowerCase())
-    if (newSolution.length === 0) {
-      setNewSolBlank(true)
-    } else if (duplicate) {
-      console.log('duplicate')
-      setSolNameExists(true)
-    } else {
-      const info = { name: firstUpper }
-      console.log('button', info)
-      try {
-        await dispatch(addOneSolution(info))
-        dispatch(fetchSolutions())
-        setSelected(firstUpper)
-        setShow(false)
-        setNewSolution('')
-      } catch (error) {
-        console.log(error)
+    if (solutions) {
+      const duplicate = solutions
+        .map(s => s.toLowerCase())
+        .includes(newSolution.toLowerCase())
+      if (newSolution.length === 0) {
+        setNewSolBlank(true)
+      } else if (duplicate) {
+        console.log('duplicate')
+        setSolNameExists(true)
+      } else {
+        const info = { name: firstUpper }
+        console.log('button', info)
+        try {
+          await dispatch(addOneSolution(info))
+          dispatch(fetchSolutions())
+          setSelected(firstUpper)
+          setShow(false)
+          setNewSolution('')
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
   }
 
-  if (!solutions.length) return 'Loading...'
+  if (isLoading) return 'Loading...'
+
   return (
     <div className="mt-6 mx-auto place-self-center w-full sm:w-[400px]  flex flex-col ">
-      {test}
+      {/* <QueryPlayground /> */}
+      {/* <QueryCustPlayground /> */}
+      {/* {JSON.stringify(solutions)} */}
       <form onSubmit={handleSubmit} className="z-[3]">
         <fieldset className="p-6 bg-blue-100 border border-blue-300">
           <legend>Add Customer</legend>
@@ -151,11 +172,7 @@ const AddCustomer = () => {
             solutions={solutions}
             handleSelect={handleSelect}
           />
-          {/* <SubmitButtonCol cancel={cancel} name={name} /> */}
-          <div className="flex justify-around pt-2">
-            <Bin onClick={cancel} title="Reset" />
-            <Send onClick={handleSubmit} title="Add Customer" />
-          </div>
+          <SubmitReset cancel={cancel} handleSubmit={handleSubmit} />
         </fieldset>
       </form>
       {/* {show && ( */}
@@ -173,11 +190,12 @@ const AddCustomer = () => {
           newSolErr={newSolErr}
           reset={resetSolution}
         />
-        {custNameExists && <Error item={`${name} exists`} />}
-        {solNameExists && <Error item={`${newSolution} exists`} />}
-        {nameSolutionEmpty && (
-          <Error item={`pls fill in all and name is more than 3 char`} />
-        )}
+        {custNameExists && <Error item={name} />}
+        {solNameExists && <Error item={newSolution} />}
+        {nameSolutionEmpty && <Error both={'name'} />}
+        {/* <Error item={name} />
+        <Error item={newSolution} />
+        <Error item={'name'} /> */}
       </div>
       {/* )} */}
 
