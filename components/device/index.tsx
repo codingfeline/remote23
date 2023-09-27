@@ -1,11 +1,5 @@
-import {
-  UserPass,
-  DevicePasswordType,
-  useState,
-  ToggleHook,
-  Plus,
-  Edit,
-} from '@components'
+//prettier-ignore
+import { UserPass, DevicePasswordType, useState, ToggleHook, Plus, Edit } from '@components'
 import { useRouter } from 'next/navigation'
 
 const index = ({ device, cid }: { device: DevicePasswordType[]; cid: string }) => {
