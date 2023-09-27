@@ -10,29 +10,35 @@ const index = ({ scanFolder, cid }: { scanFolder: ScanFolderType[]; cid: string 
     setshowDevice(show)
   }
 
-  const space = <Plus className="text-orange-100 hover:text-orange-100 disabled" />
+  const space = <Plus className="text-indigo-100 hover:text-indigo-100 disabled" />
 
   return (
-    <div className="device bg-orange-100 border-orange-300">
+    <div className="device bg-indigo-100 border-indigo-300">
       <ToggleHook
         onShowChange={handleShowChange}
-        name="Device"
+        name="Scan-to-folder"
         length={scanFolder.length}
-        compo="addDevice"
+        compo="addScanFolder"
         cid={cid}
       />
       <div className={`transIn ${!showDevice && 'transOut'}`}>
         {scanFolder.map(scan => (
           <div key={scan._id} className="sub">
-            <div className="bg-orange-100">
+            <div className="bg-indigo-100">
               <div className="flex justify-between">
                 <Edit onClick={() => router.push(`/editScanFolder/${cid}/${scan._id}`)} />
               </div>
               <div className="item">
-                <label htmlFor="make">make</label>
+                <label htmlFor="hostname">hostname</label>
                 <input type="text" value={scan.hostname} readOnly />
                 {space}
               </div>
+              <div className="item">
+                <label htmlFor="subFolder">sub folder</label>
+                <input type="text" value={scan.folder} readOnly />
+                {space}
+              </div>
+
               <UserPass username={scan.username} password={scan.password} />
             </div>
           </div>
