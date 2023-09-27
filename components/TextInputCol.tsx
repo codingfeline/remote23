@@ -4,6 +4,7 @@ type TextInputProps = {
   type?: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   required?: boolean
+  label?: string
 }
 
 const TextInput = ({
@@ -12,6 +13,7 @@ const TextInput = ({
   value,
   onChange,
   required = false,
+  label = '',
 }: TextInputProps) => {
   return (
     <>
@@ -26,7 +28,7 @@ const TextInput = ({
           value={value}
           onChange={onChange}
           required={required}
-          placeholder="name"
+          placeholder={`${name} ${label}`}
         />
       </div>
     </>
