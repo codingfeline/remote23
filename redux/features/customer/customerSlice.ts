@@ -1,11 +1,7 @@
-import axios from 'axios'
+import axios from '@components/axios'
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { CustomerType } from '@utils/types/customer'
 
-type Customer = {
-  id: number
-  name: string
-}
 type InitialState = {
   loading: boolean
   customers: CustomerType[]
@@ -18,9 +14,9 @@ const initialState: InitialState = {
 }
 
 // Generates pending, fulfilled and rejected action types
-export const fetchCustomers = createAsyncThunk('customer/fetchCustomers', () => {
-  return axios
-    .get('https://remoteapi.nazs.net/api/customers')
+export const fetchCustomers = createAsyncThunk('customer/fetchCustomers', async () => {
+  return await axios
+    .get('customers')
     .then(response => response.data)
 })
 
@@ -38,8 +34,7 @@ const customerSlice = createSlice({
         state.loading = false
         state.customers = action.payload
         state.error = ''
-      }
-    )
+      })
     builder.addCase(fetchCustomers.rejected, (state, action) => {
       state.loading = false
       state.customers = []
