@@ -1,10 +1,9 @@
-import { UserPass, ServerType, useState, ToggleHook, Plus, Edit } from '@components'
-import { useRouter } from 'next/navigation'
+//prettier-ignore
+import { UserPass, ServerType, useState, ToggleHook, Plus, Edit, useRouter } from '@components'
 
 const page = ({ server, cid }: { server: ServerType[]; cid: string }) => {
   const router = useRouter()
   const [showServer, setshowServer] = useState(true)
-
   const handleShowChange = (show: boolean) => {
     setshowServer(show)
   }
