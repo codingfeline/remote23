@@ -7,6 +7,13 @@ export const extendedSolutionSlice = apiSlice.injectEndpoints({
       query: () => '/solutions',
       providesTags: ['Solution'],
     }),
+    solutionNames: builder.query<SolutionType[], void>({
+      query: () => '/solutions',
+      transformResponse: (data: SolutionType[]) => {
+        return data.map(s => s.name).sort()
+      },
+      providesTags: ['Solution'],
+    }),
     solution: builder.query<SolutionType, string>({
       query: _id => `/solutions/${_id}`,
       providesTags: ['Solution'],
@@ -39,6 +46,7 @@ export const extendedSolutionSlice = apiSlice.injectEndpoints({
 
 export const {
   useSolutionsQuery,
+  useSolutionNamesQuery,
   useSolutionQuery,
   useAddSolutionMutation,
   useUpdateSolutionMutation,
