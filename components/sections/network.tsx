@@ -17,7 +17,12 @@ const NetworkConfig = ({ network, cid }: { network: NetworkType[]; cid: string }
       const dnsArr = dns.split(',')
       return dnsArr
         .filter((dn, i) => i <= 2)
-        .map((dn, i) => <input type="text" value={dn} readOnly />)
+        .map((dn, i) => (
+          <div className="item">
+            <label htmlFor="dns">{`dns${i + 1}`}</label>
+            <input type="text" value={dn} readOnly className="w-full" />
+          </div>
+        ))
     }
   }
 
@@ -49,12 +54,7 @@ const NetworkConfig = ({ network, cid }: { network: NetworkType[]; cid: string }
                   <label htmlFor="domain">domain</label>
                   <input type="text" value={net.domain} readOnly />
                 </div>
-                <div className="item">
-                  <label htmlFor="dns">dns</label>
-                  <div className="flex flex-col">
-                    <DnsSplit />
-                  </div>
-                </div>
+                <DnsSplit />
               </div>
             </div>
           )
