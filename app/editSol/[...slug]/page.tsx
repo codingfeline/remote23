@@ -5,7 +5,8 @@ import {
   useSolutionQuery,
   useSolutionsQuery,
   useUpdateSolutionMutation,
-} from '@services/solutionsApi'
+} from '@query/features/solution/solutionSlice'
+// } from '@services/solutionsApi'
 
 const EditSolution = ({ params }: { params: { slug: string } }) => {
   const router = useRouter()
