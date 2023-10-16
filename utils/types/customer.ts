@@ -1,15 +1,15 @@
 export type CustomerType = {
   name: string
-  solution: String
-  solutionInfo: SolutionInfoType[]
-  methodInfo: MethodInfoType[]
-  contact: ContactType[]
-  server: ServerType[]
-  serverSetup: ServerSetupType[]
-  devicePassword: DevicePasswordType[]
-  scanFolder: ScanFolderType[]
-  scanEmail: ScanEmailType[]
-  network: NetworkType[]
+  solution?: String
+  solutionInfo?: SolutionInfoType[]
+  methodInfo?: MethodInfoType[]
+  contact?: ContactType[]
+  server?: ServerType[]
+  serverSetup?: ServerSetupType[]
+  devicePassword?: DevicePasswordType[]
+  scanFolder?: ScanFolderType[]
+  scanEmail?: ScanEmailType[]
+  network?: NetworkType[]
 } & idName
 
 export type ContactType = {
